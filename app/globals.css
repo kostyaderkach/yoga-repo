@@ -9,8 +9,6 @@
   --field: #f7f7f8;
   --purple: #7768f8;
   --purple-soft: #f4f1ff;
-  --facebook: #1877f2;
-  --twitter: #1d9bf0;
 }
 
 * {
@@ -67,29 +65,16 @@ button {
 .welcomeScreen {
   display: flex;
   flex-direction: column;
-  padding: 118px 24px 26px;
+  padding: 244px 24px 26px;
 }
 
 .welcomeHero {
   text-align: center;
 }
 
-.lotusMark {
-  display: block;
-  fill: none;
-  height: 72px;
-  margin: 0 auto 82px;
-  overflow: visible;
-  stroke: var(--purple);
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 12;
-  width: 116px;
-}
-
 .welcomeHero h1 {
   font-size: 32px;
-  font-weight: 900;
+  font-weight: 700;
   letter-spacing: -0.4px;
   line-height: 1.12;
   margin: 0;
@@ -104,56 +89,10 @@ button {
   margin: 26px 0 0;
 }
 
-.socialStack {
-  display: grid;
-  gap: 21px;
-  margin-top: 68px;
-}
-
-.socialButton {
-  align-items: center;
-  background: #fff;
-  border: 1.5px solid var(--line);
-  border-radius: 999px;
-  color: var(--ink);
-  display: grid;
-  font-size: 17px;
-  font-weight: 900;
-  grid-template-columns: 42px minmax(0, 1fr) 42px;
-  min-height: 58px;
-  padding: 0 20px;
-  text-align: center;
-}
-
-.socialButton span {
-  font-size: 26px;
-  font-weight: 900;
-  justify-self: start;
-  line-height: 1;
-}
-
-.googleMark {
-  color: #4285f4;
-}
-
-.appleMark {
-  color: #000;
-}
-
-.facebookMark {
-  color: var(--facebook);
-  font-family: Arial, sans-serif;
-}
-
-.twitterMark {
-  color: var(--twitter);
-  font-family: Arial, sans-serif;
-}
-
 .welcomeActions {
   display: grid;
   gap: 20px;
-  margin-top: 76px;
+  margin-top: 132px;
 }
 
 .primaryPurpleButton,
@@ -320,6 +259,6 @@ button {
   }
 
   .welcomeScreen {
-    padding-top: 98px;
+    padding-top: 214px;
   }
 }
