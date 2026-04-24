@@ -1,63 +1,62 @@
 import Link from 'next/link'
-import { ArrowLeft, Check, EyeOff } from 'lucide-react'
+import { ArrowLeft, EyeOff, Lock, Mail, UserRound } from 'lucide-react'
 
 export default function RegisterPage() {
   return (
-    <main className="screenStage">
-      <section className="phoneFrame authScreen">
-        <div className="statusBar">
-          <span>9:41</span>
-          <span>●●●</span>
-        </div>
-
+    <main className="appStage">
+      <section className="phoneFrame signupScreen">
         <Link className="backButton" href="/" aria-label="Back">
-          <ArrowLeft size={24} />
+          <ArrowLeft size={28} strokeWidth={2.4} />
         </Link>
 
-        <div className="authIntro">
-          <h1>CREATE ACCOUNT</h1>
-          <p>Please enter your details to proceed.</p>
+        <div className="signupIntro">
+          <h1>Join Asana Today</h1>
+          <p>Start your personalized wellness experience.</p>
         </div>
 
-        <form className="appForm">
+        <form className="signupForm">
           <label>
-            Full Name
-            <span className="fieldBox">
-              <input defaultValue="Sophia Green" />
-              <Check size={22} />
+            Name
+            <span className="signupField">
+              <UserRound size={22} />
+              <input name="name" placeholder="Name" />
             </span>
           </label>
 
           <label>
-            Phone
-            <span className="fieldBox">
-              <input defaultValue="+41 79 000 00 00" />
-            </span>
-          </label>
-
-          <label>
-            Email address
-            <span className="fieldBox">
-              <input defaultValue="student@yoga.local" type="email" />
+            Email
+            <span className="signupField">
+              <Mail size={22} />
+              <input name="email" placeholder="Email" type="email" />
             </span>
           </label>
 
           <label>
             Password
-            <span className="fieldBox">
-              <input defaultValue="password" type="password" />
-              <EyeOff size={21} />
+            <span className="signupField">
+              <Lock size={22} />
+              <input name="password" placeholder="Password" type="password" />
+              <EyeOff size={22} />
             </span>
           </label>
 
-          <button className="limeButton" type="button">
-            CREATE ACCOUNT
-          </button>
+          <label className="termsLine">
+            <input name="terms" type="checkbox" />
+            <span>
+              I agree to Asana <Link href="/">Terms & Conditions.</Link>
+            </span>
+          </label>
         </form>
 
-        <p className="authSwitch">
-          Already have an account? <Link href="/login">Login!</Link>
+        <p className="inlineSwitch">
+          Already have an account? <Link href="/login">Log in</Link>
         </p>
+
+        <div className="bottomAction">
+          <button className="primaryPurpleButton" type="button">
+            Sign up
+          </button>
+        </div>
       </section>
     </main>
   )
