@@ -409,6 +409,29 @@ button {
   right: 0;
 }
 
+.hiddenSubmit {
+  display: none;
+}
+
+.formMessage {
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.35;
+  margin: -4px 0 0;
+  padding: 12px 14px;
+}
+
+.errorMessage {
+  background: #fff0f0;
+  color: #b42318;
+}
+
+.successMessage {
+  background: #f0fff5;
+  color: #16803a;
+}
+
 @media (max-width: 520px) {
   .appStage {
     padding: 0;

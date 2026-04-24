@@ -22,7 +22,7 @@ export default function RegisterPage() {
         </p>
 
         <div className="bottomAction">
-          <button className="primaryPurpleButton" type="button">
+          <button className="primaryPurpleButton" form="signup-form" type="submit">
             Sign up
           </button>
         </div>

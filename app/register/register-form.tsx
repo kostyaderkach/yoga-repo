@@ -2,19 +2,66 @@
 
 import Link from 'next/link'
 import { Eye, EyeOff, Lock, Mail, UserRound } from 'lucide-react'
-import { useState } from 'react'
+import { FormEvent, useState } from 'react'
+import { supabase } from '@/lib/supabase'
 
 export default function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false)
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [acceptedTerms, setAcceptedTerms] = useState(false)
+  const [message, setMessage] = useState('')
+  const [error, setError] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    setError('')
+    setMessage('')
+
+    if (!acceptedTerms) {
+      setError('Please accept Terms & Conditions.')
+      return
+    }
+
+    setIsLoading(true)
+
+    const { error: signUpError } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          name,
+        },
+        emailRedirectTo:
+          typeof window === 'undefined' ? undefined : `${window.location.origin}/login`,
+      },
+    })
+
+    setIsLoading(false)
+
+    if (signUpError) {
+      setError(signUpError.message)
+      return
+    }
+
+    setMessage('Account created. Check your email to confirm registration.')
+  }
 
   return (
-    <form className="signupForm">
+    <form className="signupForm" id="signup-form" onSubmit={handleSubmit}>
       <label>
         Name
         <span className="signupField">
           <UserRound size={22} />
-          <input name="name" placeholder="Name" />
+          <input
+            name="name"
+            placeholder="Name"
+            required
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+          />
         </span>
       </label>
 
@@ -22,7 +69,14 @@ export default function RegisterForm() {
         Email
         <span className="signupField">
           <Mail size={22} />
-          <input name="email" placeholder="Email" type="email" />
+          <input
+            name="email"
+            placeholder="Email"
+            required
+            type="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+          />
         </span>
       </label>
 
@@ -33,6 +87,8 @@ export default function RegisterForm() {
           <input
             name="password"
             placeholder="Password"
+            required
+            minLength={6}
             type={showPassword ? 'text' : 'password'}
             value={password}
             onChange={(event) => setPassword(event.target.value)}
@@ -49,11 +105,23 @@ export default function RegisterForm() {
       </label>
 
       <label className="termsLine">
-        <input name="terms" type="checkbox" />
+        <input
+          checked={acceptedTerms}
+          name="terms"
+          type="checkbox"
+          onChange={(event) => setAcceptedTerms(event.target.checked)}
+        />
         <span>
           I agree to Asana <Link href="/">Terms & Conditions.</Link>
         </span>
       </label>
+
+      {error ? <p className="formMessage errorMessage">{error}</p> : null}
+      {message ? <p className="formMessage successMessage">{message}</p> : null}
+
+      <button className="hiddenSubmit" disabled={isLoading} id="signup-submit" type="submit">
+        Sign up
+      </button>
     </form>
   )
 }
