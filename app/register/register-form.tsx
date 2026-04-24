@@ -29,7 +29,11 @@ export default function RegisterForm() {
         Password
         <span className="signupField">
           <Lock size={22} />
-          <input name="password" placeholder="Password" type={showPassword ? 'text' : 'password'} />
+          {showPassword ? (
+            <input key="password-text" name="password" placeholder="Password" type="text" />
+          ) : (
+            <input key="password-hidden" name="password" placeholder="Password" type="password" />
+          )}
           <button
             className="passwordToggle"
             type="button"
