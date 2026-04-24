@@ -405,10 +405,14 @@ button {
   margin-top: 2px;
 }
 
-.rememberLine {
+.signupForm .rememberLine {
   align-items: center;
-  display: inline-flex;
+  color: var(--ink);
+  display: inline-grid;
+  font-size: 18px;
+  font-weight: 500;
   gap: 14px;
+  grid-template-columns: 28px max-content;
 }
 
 .inlineSwitch {
