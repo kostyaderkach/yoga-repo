@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { ArrowLeft, EyeOff, Lock, Mail, UserRound } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
+import RegisterForm from './register-form'
 
 export default function RegisterPage() {
   return (
@@ -14,39 +15,7 @@ export default function RegisterPage() {
           <p>Start your personalized wellness experience.</p>
         </div>
 
-        <form className="signupForm">
-          <label>
-            Name
-            <span className="signupField">
-              <UserRound size={22} />
-              <input name="name" placeholder="Name" />
-            </span>
-          </label>
-
-          <label>
-            Email
-            <span className="signupField">
-              <Mail size={22} />
-              <input name="email" placeholder="Email" type="email" />
-            </span>
-          </label>
-
-          <label>
-            Password
-            <span className="signupField">
-              <Lock size={22} />
-              <input name="password" placeholder="Password" type="password" />
-              <EyeOff size={22} />
-            </span>
-          </label>
-
-          <label className="termsLine">
-            <input name="terms" type="checkbox" />
-            <span>
-              I agree to Asana <Link href="/">Terms & Conditions.</Link>
-            </span>
-          </label>
-        </form>
+        <RegisterForm />
 
         <p className="inlineSwitch">
           Already have an account? <Link href="/login">Log in</Link>
