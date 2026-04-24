@@ -6,6 +6,7 @@ import { useState } from 'react'
 
 export default function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false)
+  const [password, setPassword] = useState('')
 
   return (
     <form className="signupForm">
@@ -29,11 +30,13 @@ export default function RegisterForm() {
         Password
         <span className="signupField">
           <Lock size={22} />
-          {showPassword ? (
-            <input key="password-text" name="password" placeholder="Password" type="text" />
-          ) : (
-            <input key="password-hidden" name="password" placeholder="Password" type="password" />
-          )}
+          <input
+            name="password"
+            placeholder="Password"
+            type={showPassword ? 'text' : 'password'}
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
           <button
             className="passwordToggle"
             type="button"
