@@ -602,7 +602,9 @@ button {
   font-size: 12px;
   font-weight: 700;
   gap: 4px;
+  grid-template-rows: 32px 16px;
   justify-items: center;
+  min-height: 56px;
 }
 
 .appTabBar a span {

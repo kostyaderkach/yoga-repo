@@ -3,18 +3,51 @@
 import Link from 'next/link'
 import { Eye, EyeOff, Lock, Mail } from 'lucide-react'
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { supabase } from '@/lib/supabase'
 
 export default function LoginForm() {
+  const router = useRouter()
   const [showPassword, setShowPassword] = useState(false)
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    setError('')
+    setIsLoading(true)
+
+    const { error: signInError } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    })
+
+    setIsLoading(false)
+
+    if (signInError) {
+      setError(signInError.message)
+      return
+    }
+
+    router.push('/app')
+  }
 
   return (
-    <form className="signupForm" id="login-form">
+    <form className="signupForm" id="login-form" onSubmit={handleSubmit}>
       <label>
         Email
         <span className="signupField">
           <Mail size={22} />
-          <input name="email" placeholder="Email" type="email" />
+          <input
+            name="email"
+            placeholder="Email"
+            required
+            type="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+          />
         </span>
       </label>
 
@@ -25,6 +58,7 @@ export default function LoginForm() {
           <input
             name="password"
             placeholder="Password"
+            required
             type={showPassword ? 'text' : 'password'}
             value={password}
             onChange={(event) => setPassword(event.target.value)}
@@ -47,6 +81,12 @@ export default function LoginForm() {
         </label>
         <Link href="/">Forgot Password?</Link>
       </div>
+
+      {error ? <p className="formMessage errorMessage">{error}</p> : null}
+
+      <button className="hiddenSubmit" disabled={isLoading} type="submit">
+        Log in
+      </button>
     </form>
   )
 }
