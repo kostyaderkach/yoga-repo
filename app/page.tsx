@@ -1,35 +1,35 @@
 import Link from 'next/link'
-import { ArrowRight, CalendarDays, Leaf, UserRound } from 'lucide-react'
+import { ArrowRight, CalendarDays, Leaf, Search, Sparkles, UserRound } from 'lucide-react'
 
 export default function HomePage() {
   return (
     <main className="screenStage">
       <section className="phoneFrame homePreview">
-        <div className="statusBar">
-          <span>9:41</span>
-          <span>●●●</span>
-        </div>
-
-        <header className="homeHeader">
-          <div>
-            <p className="mutedLabel">Good morning</p>
-            <h1>Sophia!</h1>
-          </div>
-          <div className="avatar" />
+        <header className="welcomeHeader">
+          <span className="brandDot">
+            <Sparkles size={24} />
+          </span>
+          <p className="mutedLabel">Online yoga studio</p>
+          <h1>Practice live yoga from home</h1>
         </header>
 
-        <div className="heroCard">
+        <div className="searchBox">
+          <Search size={24} />
+          <span>Search classes</span>
+        </div>
+
+        <div className="heroCard publicHero">
           <div>
-            <p>Next class</p>
+            <p>Upcoming live class</p>
             <h2>Vinyasa Flow</h2>
-            <span>Today · 18:30 · Zoom</span>
+            <span>Today · 18:30 · Online</span>
           </div>
           <CalendarDays size={28} />
         </div>
 
         <div className="sectionTitle">
-          <h2>Start with account</h2>
-          <p>Первый шаг: вход и регистрация в стиле мобильного приложения.</p>
+          <h2>Start your practice</h2>
+          <p>Создайте аккаунт, чтобы записываться на занятия и получать Zoom-ссылки.</p>
         </div>
 
         <div className="actionStack">

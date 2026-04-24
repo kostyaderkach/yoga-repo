@@ -191,11 +191,8 @@ button {
   padding-bottom: 98px;
 }
 
-.homeHeader {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  padding: 28px 28px 0;
+.welcomeHeader {
+  padding: 42px 28px 0;
 }
 
 .mutedLabel {
@@ -205,23 +202,41 @@ button {
   margin: 0;
 }
 
-.homeHeader h1 {
-  font-size: 34px;
-  line-height: 1;
-  margin: 5px 0 0;
+.welcomeHeader h1 {
+  font-family: Impact, "Arial Narrow", sans-serif;
+  font-size: 44px;
+  font-weight: 900;
+  letter-spacing: 0.4px;
+  line-height: 1.02;
+  margin: 12px 0 0;
+  max-width: 330px;
 }
 
-.avatar {
-  background:
-    linear-gradient(rgba(180, 213, 31, 0.1), rgba(180, 213, 31, 0.1)),
-    url("https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=240&q=85");
-  background-position: center;
-  background-size: cover;
-  border: 4px solid #fff;
-  border-radius: 50%;
-  box-shadow: 0 10px 24px rgba(17, 19, 22, 0.12);
-  height: 68px;
-  width: 68px;
+.brandDot {
+  align-items: center;
+  background: var(--lime);
+  border-radius: 18px;
+  color: #fff;
+  display: inline-flex;
+  height: 62px;
+  justify-content: center;
+  margin-bottom: 22px;
+  width: 62px;
+}
+
+.searchBox {
+  align-items: center;
+  background: var(--field);
+  border: 1.5px solid var(--line);
+  border-radius: 11px;
+  color: #3f4851;
+  display: flex;
+  font-size: 20px;
+  font-weight: 600;
+  gap: 16px;
+  margin: 32px 28px 0;
+  min-height: 68px;
+  padding: 0 20px;
 }
 
 .heroCard {
@@ -237,6 +252,10 @@ button {
   margin: 30px 0 0 88px;
   min-height: 172px;
   padding: 26px 28px;
+}
+
+.publicHero {
+  margin-left: 28px;
 }
 
 .heroCard p,
