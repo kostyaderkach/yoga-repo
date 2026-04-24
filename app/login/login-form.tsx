@@ -4,10 +4,11 @@ import Link from 'next/link'
 import { Eye, EyeOff, Lock, Mail } from 'lucide-react'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { supabase } from '@/lib/supabase'
+import { createSupabaseBrowserClient } from '@/lib/supabase/client'
 
 export default function LoginForm() {
   const router = useRouter()
+  const supabase = createSupabaseBrowserClient()
   const [showPassword, setShowPassword] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')

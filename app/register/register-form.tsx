@@ -3,9 +3,10 @@
 import Link from 'next/link'
 import { Eye, EyeOff, Lock, Mail, UserRound } from 'lucide-react'
 import { FormEvent, useState } from 'react'
-import { supabase } from '@/lib/supabase'
+import { createSupabaseBrowserClient } from '@/lib/supabase/client'
 
 export default function RegisterForm() {
+  const supabase = createSupabaseBrowserClient()
   const [showPassword, setShowPassword] = useState(false)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
