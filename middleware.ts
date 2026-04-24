@@ -39,9 +39,24 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(loginUrl)
   }
 
+  if (request.nextUrl.pathname.startsWith('/admin')) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', user.id)
+      .single()
+
+    if (profile?.role !== 'admin') {
+      const appUrl = request.nextUrl.clone()
+      appUrl.pathname = '/app'
+      appUrl.search = ''
+      return NextResponse.redirect(appUrl)
+    }
+  }
+
   return response
 }
 
 export const config = {
-  matcher: ['/app/:path*'],
+  matcher: ['/app/:path*', '/admin/:path*'],
 }
