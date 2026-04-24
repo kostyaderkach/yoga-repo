@@ -106,23 +106,15 @@ button {
   justify-content: center;
   min-height: 60px;
   width: 100%;
-  -webkit-backdrop-filter: blur(24px) saturate(160%);
-  backdrop-filter: blur(24px) saturate(160%);
 }
 
 .primaryPurpleButton {
-  background: rgba(119, 104, 248, 0.78);
-  border: 1px solid rgba(255, 255, 255, 0.58);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.42),
-    0 18px 34px rgba(119, 104, 248, 0.22);
+  background: var(--purple);
   color: #fff;
 }
 
 .softPurpleButton {
-  background: rgba(119, 104, 248, 0.09);
-  border: 1px solid rgba(119, 104, 248, 0.08);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+  background: var(--purple-soft);
   color: var(--purple);
 }
 
@@ -132,10 +124,41 @@ button {
   display: flex;
   font-size: 15px;
   font-weight: 500;
+  flex-wrap: wrap;
   gap: 16px;
   justify-content: center;
   margin-top: auto;
   padding-top: 42px;
+}
+
+.languageSwitch {
+  align-items: center;
+  background: var(--purple-soft);
+  border-radius: 999px;
+  display: inline-flex;
+  flex: 0 0 100%;
+  gap: 4px;
+  justify-content: center;
+  margin-bottom: 6px;
+  margin-inline: auto;
+  padding: 4px;
+  width: 118px;
+}
+
+.languageSwitch button {
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  color: var(--purple);
+  font-size: 13px;
+  font-weight: 700;
+  min-height: 30px;
+  width: 52px;
+}
+
+.languageSwitch .active {
+  background: #fff;
+  box-shadow: 0 4px 14px rgba(119, 104, 248, 0.12);
 }
 
 .backButton {

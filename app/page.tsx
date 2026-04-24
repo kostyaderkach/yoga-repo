@@ -19,6 +19,10 @@ export default function WelcomePage() {
         </div>
 
         <footer className="legalLinks">
+          <div className="languageSwitch" aria-label="Language switcher">
+            <button className="active" type="button">EN</button>
+            <button type="button">UA</button>
+          </div>
           <Link href="/">Privacy Policy</Link>
           <span>·</span>
           <Link href="/">Terms of Service</Link>
