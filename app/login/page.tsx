@@ -1,53 +1,31 @@
 import Link from 'next/link'
-import { ArrowLeft, Check, EyeOff } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
+import LoginForm from './login-form'
 
 export default function LoginPage() {
   return (
-    <main className="screenStage">
-      <section className="phoneFrame authScreen">
-        <div className="statusBar">
-          <span>9:41</span>
-          <span>●●●</span>
-        </div>
-
+    <main className="appStage">
+      <section className="phoneFrame signupScreen">
         <Link className="backButton" href="/" aria-label="Back">
-          <ArrowLeft size={24} />
+          <ArrowLeft size={28} strokeWidth={2.4} />
         </Link>
 
-        <div className="authIntro">
-          <h1>WELCOME TO YOGA SPACE!</h1>
-          <p>Hello there, sign in to continue.</p>
+        <div className="signupIntro">
+          <h1>Welcome Back!</h1>
+          <p>Sign in to continue your wellness journey.</p>
         </div>
 
-        <form className="appForm">
-          <label>
-            Email address
-            <span className="fieldBox">
-              <input defaultValue="student@yoga.local" type="email" />
-              <Check size={22} />
-            </span>
-          </label>
+        <LoginForm />
 
-          <label>
-            Password
-            <span className="fieldBox">
-              <input defaultValue="password" type="password" />
-              <EyeOff size={21} />
-            </span>
-          </label>
-
-          <Link className="forgotLink" href="/register">
-            Forgot Password?
-          </Link>
-
-          <button className="limeButton" type="button">
-            LOGIN
-          </button>
-        </form>
-
-        <p className="authSwitch">
-          Don’t have an account? <Link href="/register">Register!</Link>
+        <p className="inlineSwitch">
+          Don&apos;t have an account? <Link href="/register">Sign up</Link>
         </p>
+
+        <div className="bottomAction">
+          <button className="primaryPurpleButton" form="login-form" type="submit">
+            Log in
+          </button>
+        </div>
       </section>
     </main>
   )
