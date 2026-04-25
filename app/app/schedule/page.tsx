@@ -126,6 +126,7 @@ export default async function SchedulePage({ searchParams }: SchedulePageProps) 
     acc[key] = [...(acc[key] ?? []), item]
     return acc
   }, {})
+  const visibleDays = isAdmin ? days : days.filter((day) => (classesByDay[toDateKey(day)] ?? []).length > 0)
 
   return (
     <main className="appStage">
@@ -155,7 +156,7 @@ export default async function SchedulePage({ searchParams }: SchedulePageProps) 
         {params.error ? <p className="adminNotice errorMessage">{params.error}</p> : null}
 
         <div className="scheduleDays">
-          {days.map((day) => {
+          {visibleDays.length ? visibleDays.map((day) => {
             const dayInfo = formatDay(day)
             const dayClasses = classesByDay[dayInfo.key] ?? []
 
@@ -187,7 +188,7 @@ export default async function SchedulePage({ searchParams }: SchedulePageProps) 
                             <div className="classMeta">
                               <span>{formatClassTime(item.starts_at)}</span>
                               <span>{item.duration_minutes ?? 60} min</span>
-                              {isAdmin ? <span>{classBookings.length} booked</span> : null}
+                              <span>{classBookings.length} booked</span>
                             </div>
                             <h2>{practiceType?.title_en ?? 'Yoga class'}</h2>
                             <p>{practiceType?.title_ua ?? practiceType?.default_difficulty ?? 'All levels'}</p>
@@ -229,7 +230,12 @@ export default async function SchedulePage({ searchParams }: SchedulePageProps) 
                 </div>
               </section>
             )
-          })}
+          }) : (
+            <div className="scheduleEmptyState">
+              <h2>No classes this week</h2>
+              <p>Check another week or come back when the next schedule is ready.</p>
+            </div>
+          )}
         </div>
 
         {isAdmin ? (

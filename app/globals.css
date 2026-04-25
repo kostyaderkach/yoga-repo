@@ -671,8 +671,8 @@ button {
 }
 
 .scheduleHeader h1 {
-  font-size: 30px;
-  font-weight: 800;
+  font-size: 26px;
+  font-weight: 700;
   line-height: 1.08;
   margin: 0;
 }
@@ -856,6 +856,27 @@ button {
   margin: 0;
   padding: 16px;
   text-align: center;
+}
+
+.scheduleEmptyState {
+  background: #fff;
+  border: 1px solid rgba(119, 104, 248, 0.12);
+  border-radius: 24px;
+  padding: 24px;
+  text-align: center;
+}
+
+.scheduleEmptyState h2 {
+  font-size: 22px;
+  font-weight: 800;
+  margin: 0;
+}
+
+.scheduleEmptyState p {
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.4;
+  margin: 10px 0 0;
 }
 
 .floatingAddButton {
