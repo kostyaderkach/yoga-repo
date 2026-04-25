@@ -84,28 +84,14 @@ export default async function NewClassPage({ searchParams }: NewClassPageProps) 
             </label>
           </div>
 
-          <div className="adminFormGrid">
-            <label>
-              Duration
-              <input name="duration_minutes" inputMode="numeric" min="1" type="number" defaultValue="60" />
-            </label>
-            <label>
-              Status
-              <select name="status" defaultValue="draft">
-                <option value="draft">Draft</option>
-                <option value="published">Published</option>
-              </select>
-            </label>
-          </div>
+          <label>
+            Duration
+            <input name="duration_minutes" inputMode="numeric" min="1" type="number" defaultValue="60" />
+          </label>
 
           <label>
             Zoom link
             <input name="zoom_url" placeholder="https://zoom.us/..." type="url" />
-          </label>
-
-          <label>
-            Notes
-            <textarea name="notes" placeholder="Optional note for this class..." />
           </label>
 
           <button className="adminPrimaryButton" type="submit">

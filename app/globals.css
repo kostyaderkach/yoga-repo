@@ -677,17 +677,6 @@ button {
   margin: 0;
 }
 
-.publishButton {
-  background: var(--purple);
-  border: 0;
-  border-radius: 999px;
-  color: #fff;
-  font-size: 14px;
-  font-weight: 800;
-  min-height: 40px;
-  padding: 0 16px;
-}
-
 .weekSwitcher {
   align-items: center;
   background: #fff;
@@ -770,6 +759,10 @@ button {
   width: 38px;
 }
 
+.classIconButton.danger {
+  color: #b42318;
+}
+
 .dayClassList {
   display: grid;
   gap: 10px;
@@ -784,10 +777,6 @@ button {
   gap: 12px;
   grid-template-columns: 6px minmax(0, 1fr) auto;
   padding: 14px;
-}
-
-.scheduleClassCard.draft {
-  opacity: 0.72;
 }
 
 .classColor {
@@ -830,28 +819,11 @@ button {
   margin: 4px 0 0;
 }
 
-.scheduleClassCard small {
-  color: var(--muted);
-  display: block;
-  font-size: 13px;
-  line-height: 1.35;
-  margin-top: 8px;
-}
-
 .classActions {
   align-items: end;
   display: grid;
   gap: 8px;
   justify-items: end;
-}
-
-.statusPill {
-  background: var(--purple-soft);
-  border-radius: 999px;
-  color: var(--purple);
-  font-size: 12px;
-  font-weight: 800;
-  padding: 7px 9px;
 }
 
 .bookClassButton,

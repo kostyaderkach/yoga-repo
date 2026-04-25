@@ -21,8 +21,6 @@ type ClassRow = {
   starts_at: string
   duration_minutes: number | null
   zoom_url: string | null
-  notes: string | null
-  status: string | null
 }
 
 function localDateParts(value: string) {
@@ -70,7 +68,7 @@ export default async function EditClassPage({ params, searchParams }: EditClassP
   const [{ data: classRow }, { data: practiceTypes }] = await Promise.all([
     supabase
       .from('classes')
-      .select('id, practice_type_id, starts_at, duration_minutes, zoom_url, notes, status')
+      .select('id, practice_type_id, starts_at, duration_minutes, zoom_url')
       .eq('id', id)
       .single(),
     supabase.from('practice_types').select('id, title_en, title_ua').order('title_en', { ascending: true }),
@@ -123,28 +121,14 @@ export default async function EditClassPage({ params, searchParams }: EditClassP
             </label>
           </div>
 
-          <div className="adminFormGrid">
-            <label>
-              Duration
-              <input name="duration_minutes" inputMode="numeric" min="1" type="number" defaultValue={item.duration_minutes ?? 60} />
-            </label>
-            <label>
-              Status
-              <select name="status" defaultValue={item.status ?? 'draft'}>
-                <option value="draft">Draft</option>
-                <option value="published">Published</option>
-              </select>
-            </label>
-          </div>
+          <label>
+            Duration
+            <input name="duration_minutes" inputMode="numeric" min="1" type="number" defaultValue={item.duration_minutes ?? 60} />
+          </label>
 
           <label>
             Zoom link
             <input name="zoom_url" placeholder="https://zoom.us/..." type="url" defaultValue={item.zoom_url ?? ''} />
-          </label>
-
-          <label>
-            Notes
-            <textarea name="notes" placeholder="Optional note for this class..." defaultValue={item.notes ?? ''} />
           </label>
 
           <button className="adminPrimaryButton" type="submit">

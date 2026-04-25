@@ -1,12 +1,12 @@
 import Link from 'next/link'
-import { CalendarDays, ChevronLeft, ChevronRight, Pencil, Plus } from 'lucide-react'
+import { CalendarDays, ChevronLeft, ChevronRight, Pencil, Plus, Trash2 } from 'lucide-react'
 import { redirect } from 'next/navigation'
 import AppTabBar from '../tab-bar'
-import { bookClassAction, cancelBookingAction, publishWeekAction } from './actions'
+import { bookClassAction, cancelBookingAction, deleteClassAction } from './actions'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
 
 type SchedulePageProps = {
-  searchParams?: Promise<{ week?: string; booked?: string; canceled?: string; created?: string; updated?: string; published?: string; error?: string }>
+  searchParams?: Promise<{ week?: string; booked?: string; canceled?: string; created?: string; updated?: string; deleted?: string; error?: string }>
 }
 
 type PracticeType = {
@@ -21,8 +21,6 @@ type ClassItem = {
   starts_at: string
   duration_minutes: number | null
   zoom_url: string | null
-  status: string | null
-  notes: string | null
   practice_types: PracticeType | PracticeType[] | null
 }
 
@@ -103,18 +101,13 @@ export default async function SchedulePage({ searchParams }: SchedulePageProps) 
   const nextWeek = toDateKey(addDays(selectedWeek, 7))
   const days = Array.from({ length: 7 }, (_, index) => addDays(selectedWeek, index))
 
-  let classesQuery = supabase
+  const { data: classRows } = await supabase
     .from('classes')
-    .select('id, starts_at, duration_minutes, zoom_url, status, notes, practice_types(title_en, title_ua, color, default_difficulty)')
+    .select('id, starts_at, duration_minutes, zoom_url, practice_types(title_en, title_ua, color, default_difficulty)')
     .gte('starts_at', selectedWeek.toISOString())
     .lt('starts_at', weekEnd.toISOString())
     .order('starts_at', { ascending: true })
 
-  if (!isAdmin) {
-    classesQuery = classesQuery.eq('status', 'published')
-  }
-
-  const { data: classRows } = await classesQuery
   const classes = (classRows ?? []) as ClassItem[]
   const classIds = classes.map((item) => item.id)
 
@@ -142,12 +135,6 @@ export default async function SchedulePage({ searchParams }: SchedulePageProps) 
             <p>Weekly Schedule</p>
             <h1>{formatWeekTitle(selectedWeek)}</h1>
           </div>
-          {isAdmin ? (
-            <form action={publishWeekAction}>
-              <input name="week_start" type="hidden" value={toDateKey(selectedWeek)} />
-              <button className="publishButton" type="submit">Publish</button>
-            </form>
-          ) : null}
         </header>
 
         <nav className="weekSwitcher" aria-label="Week navigation">
@@ -162,7 +149,7 @@ export default async function SchedulePage({ searchParams }: SchedulePageProps) 
 
         {params.created ? <p className="adminNotice successMessage">Class created.</p> : null}
         {params.updated ? <p className="adminNotice successMessage">Class updated.</p> : null}
-        {params.published ? <p className="adminNotice successMessage">Week published.</p> : null}
+        {params.deleted ? <p className="adminNotice successMessage">Class deleted.</p> : null}
         {params.booked ? <p className="adminNotice successMessage">You are booked.</p> : null}
         {params.canceled ? <p className="adminNotice successMessage">Booking canceled.</p> : null}
         {params.error ? <p className="adminNotice errorMessage">{params.error}</p> : null}
@@ -194,7 +181,7 @@ export default async function SchedulePage({ searchParams }: SchedulePageProps) 
                       const ownBooking = classBookings.find((booking) => booking.user_id === user.id)
 
                       return (
-                        <article className={`scheduleClassCard ${item.status === 'draft' ? 'draft' : ''}`} key={item.id}>
+                        <article className="scheduleClassCard" key={item.id}>
                           <span className="classColor" style={{ background: practiceType?.color ?? '#7768f8' }} />
                           <div className="classContent">
                             <div className="classMeta">
@@ -204,14 +191,21 @@ export default async function SchedulePage({ searchParams }: SchedulePageProps) 
                             </div>
                             <h2>{practiceType?.title_en ?? 'Yoga class'}</h2>
                             <p>{practiceType?.title_ua ?? practiceType?.default_difficulty ?? 'All levels'}</p>
-                            {item.notes ? <small>{item.notes}</small> : null}
                           </div>
                           <div className="classActions">
-                            {isAdmin ? <span className="statusPill">{item.status ?? 'draft'}</span> : null}
                             {isAdmin ? (
-                              <Link className="classIconButton" href={`/app/schedule/${item.id}/edit`} aria-label="Edit class">
-                                <Pencil size={16} />
-                              </Link>
+                              <>
+                                <Link className="classIconButton" href={`/app/schedule/${item.id}/edit`} aria-label="Edit class">
+                                  <Pencil size={16} />
+                                </Link>
+                                <form action={deleteClassAction}>
+                                  <input name="id" type="hidden" value={item.id} />
+                                  <input name="week_start" type="hidden" value={toDateKey(selectedWeek)} />
+                                  <button className="classIconButton danger" type="submit" aria-label="Delete class">
+                                    <Trash2 size={16} />
+                                  </button>
+                                </form>
+                              </>
                             ) : ownBooking ? (
                               <form action={cancelBookingAction}>
                                 <input name="booking_id" type="hidden" value={ownBooking.id} />

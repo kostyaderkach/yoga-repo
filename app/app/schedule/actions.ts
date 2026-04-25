@@ -74,7 +74,7 @@ async function getAdminClient() {
 }
 
 export async function createClassAction(formData: FormData) {
-  const { supabase, user } = await getAdminClient()
+  const { supabase } = await getAdminClient()
   const date = getFormValue(formData, 'date')
   const time = getFormValue(formData, 'time')
   const practiceTypeId = getFormValue(formData, 'practice_type_id')
@@ -88,8 +88,7 @@ export async function createClassAction(formData: FormData) {
     starts_at: localDateTimeToIso(date, time),
     duration_minutes: Number(getFormValue(formData, 'duration_minutes') || 60),
     zoom_url: getFormValue(formData, 'zoom_url') || null,
-    notes: getFormValue(formData, 'notes') || null,
-    status: getFormValue(formData, 'status') || 'draft',
+    status: 'published',
   })
 
   if (error) {
@@ -118,8 +117,7 @@ export async function updateClassAction(formData: FormData) {
       starts_at: localDateTimeToIso(date, time),
       duration_minutes: Number(getFormValue(formData, 'duration_minutes') || 60),
       zoom_url: getFormValue(formData, 'zoom_url') || null,
-      notes: getFormValue(formData, 'notes') || null,
-      status: getFormValue(formData, 'status') || 'draft',
+      status: 'published',
     })
     .eq('id', id)
 
@@ -132,30 +130,29 @@ export async function updateClassAction(formData: FormData) {
   redirect(`/app/schedule?week=${date}&updated=1`)
 }
 
-export async function publishWeekAction(formData: FormData) {
+export async function deleteClassAction(formData: FormData) {
   const { supabase } = await getAdminClient()
+  const id = getFormValue(formData, 'id')
   const weekStart = getFormValue(formData, 'week_start')
 
-  if (!weekStart) {
-    redirect('/app/schedule?error=Week is required')
+  if (!id) {
+    redirect(`/app/schedule?week=${weekStart}&error=Class is required`)
   }
 
-  const start = new Date(`${weekStart}T00:00:00.000Z`)
-  const end = new Date(start)
-  end.setDate(end.getDate() + 7)
+  const { error: bookingsError } = await supabase.from('bookings').delete().eq('class_id', id)
 
-  const { error } = await supabase
-    .from('classes')
-    .update({ status: 'published' })
-    .gte('starts_at', start.toISOString())
-    .lt('starts_at', end.toISOString())
+  if (bookingsError) {
+    redirect(`/app/schedule?week=${weekStart}&error=${encodeURIComponent(bookingsError.message)}`)
+  }
+
+  const { error } = await supabase.from('classes').delete().eq('id', id)
 
   if (error) {
     redirect(`/app/schedule?week=${weekStart}&error=${encodeURIComponent(error.message)}`)
   }
 
   revalidatePath('/app/schedule')
-  redirect(`/app/schedule?week=${weekStart}&published=1`)
+  redirect(`/app/schedule?week=${weekStart}&deleted=1`)
 }
 
 export async function bookClassAction(formData: FormData) {
