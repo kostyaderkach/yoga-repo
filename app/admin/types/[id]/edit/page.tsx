@@ -34,7 +34,7 @@ export default async function EditPracticeTypePage({ params, searchParams }: Edi
 
   const { data: practiceType } = await supabase
     .from('practice_types')
-    .select('id, title_en, title_ua, description_en, description_ua, default_difficulty, color, image_url')
+    .select('id, title_en, title_ua, description_en, description_ua, default_difficulty, image_url')
     .eq('id', id)
     .single()
 
@@ -89,21 +89,15 @@ export default async function EditPracticeTypePage({ params, searchParams }: Edi
             />
           </label>
 
-          <div className="adminFormGrid">
-            <label>
-              Difficulty
-              <select name="default_difficulty" defaultValue={practiceType.default_difficulty ?? 'All levels'}>
-                <option>Beginner</option>
-                <option>Intermediate</option>
-                <option>Advanced</option>
-                <option>All levels</option>
-              </select>
-            </label>
-            <label>
-              Color
-              <input name="color" placeholder="#7768f8" defaultValue={practiceType.color ?? ''} />
-            </label>
-          </div>
+          <label>
+            Difficulty
+            <select name="default_difficulty" defaultValue={practiceType.default_difficulty ?? 'All levels'}>
+              <option>Beginner</option>
+              <option>Intermediate</option>
+              <option>Advanced</option>
+              <option>All levels</option>
+            </select>
+          </label>
 
           <label>
             Image URL

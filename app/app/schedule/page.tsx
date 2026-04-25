@@ -12,7 +12,6 @@ type SchedulePageProps = {
 type PracticeType = {
   title_en?: string | null
   title_ua?: string | null
-  color?: string | null
   default_difficulty?: string | null
 }
 
@@ -103,7 +102,7 @@ export default async function SchedulePage({ searchParams }: SchedulePageProps) 
 
   const { data: classRows } = await supabase
     .from('classes')
-    .select('id, starts_at, duration_minutes, zoom_url, practice_types(title_en, title_ua, color, default_difficulty)')
+    .select('id, starts_at, duration_minutes, zoom_url, practice_types(title_en, title_ua, default_difficulty)')
     .gte('starts_at', selectedWeek.toISOString())
     .lt('starts_at', weekEnd.toISOString())
     .order('starts_at', { ascending: true })
@@ -182,8 +181,8 @@ export default async function SchedulePage({ searchParams }: SchedulePageProps) 
                       const ownBooking = classBookings.find((booking) => booking.user_id === user.id)
 
                       return (
-                        <article className="scheduleClassCard" key={item.id}>
-                          <span className="classColor" style={{ background: practiceType?.color ?? '#7768f8' }} />
+                        <article className={`scheduleClassCard ${isAdmin ? 'adminClassCard' : ''}`} key={item.id}>
+                          <span className="classColor" />
                           <div className="classContent">
                             <div className="classMeta">
                               <span>{formatClassTime(item.starts_at)}</span>
@@ -191,7 +190,11 @@ export default async function SchedulePage({ searchParams }: SchedulePageProps) 
                               <span>{classBookings.length} booked</span>
                             </div>
                             <h2>{practiceType?.title_en ?? 'Yoga class'}</h2>
-                            <p>{practiceType?.title_ua ?? practiceType?.default_difficulty ?? 'All levels'}</p>
+                            <p>{practiceType?.title_ua ?? 'Yoga'}</p>
+                            <span className="classDifficulty">
+                              <i />
+                              {practiceType?.default_difficulty ?? 'All levels'}
+                            </span>
                           </div>
                           <div className="classActions">
                             {isAdmin ? (

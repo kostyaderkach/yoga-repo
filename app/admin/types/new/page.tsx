@@ -67,21 +67,15 @@ export default async function NewPracticeTypePage({ searchParams }: NewPracticeT
             <textarea name="description_ua" placeholder="Динамічна практика..." />
           </label>
 
-          <div className="adminFormGrid">
-            <label>
-              Difficulty
-              <select name="default_difficulty">
-                <option>Beginner</option>
-                <option>Intermediate</option>
-                <option>Advanced</option>
-                <option>All levels</option>
-              </select>
-            </label>
-            <label>
-              Color
-              <input name="color" placeholder="#7768f8" />
-            </label>
-          </div>
+          <label>
+            Difficulty
+            <select name="default_difficulty">
+              <option>Beginner</option>
+              <option>Intermediate</option>
+              <option>Advanced</option>
+              <option>All levels</option>
+            </select>
+          </label>
 
           <label>
             Image URL

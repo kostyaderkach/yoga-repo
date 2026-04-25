@@ -48,7 +48,6 @@ export async function createPracticeTypeAction(formData: FormData) {
     description_en: getFormValue(formData, 'description_en') || null,
     description_ua: getFormValue(formData, 'description_ua') || null,
     default_difficulty: getFormValue(formData, 'default_difficulty') || null,
-    color: getFormValue(formData, 'color') || null,
     image_url: getFormValue(formData, 'image_url') || null,
   })
 
@@ -82,7 +81,6 @@ export async function updatePracticeTypeAction(formData: FormData) {
       description_en: getFormValue(formData, 'description_en') || null,
       description_ua: getFormValue(formData, 'description_ua') || null,
       default_difficulty: getFormValue(formData, 'default_difficulty') || null,
-      color: getFormValue(formData, 'color') || null,
       image_url: getFormValue(formData, 'image_url') || null,
     })
     .eq('id', id)
