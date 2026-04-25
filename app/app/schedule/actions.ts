@@ -90,7 +90,6 @@ export async function createClassAction(formData: FormData) {
     zoom_url: getFormValue(formData, 'zoom_url') || null,
     notes: getFormValue(formData, 'notes') || null,
     status: getFormValue(formData, 'status') || 'draft',
-    created_by: user.id,
   })
 
   if (error) {
