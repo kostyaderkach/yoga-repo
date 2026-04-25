@@ -39,7 +39,7 @@ export async function createPracticeTypeAction(formData: FormData) {
   const titleUa = getFormValue(formData, 'title_ua')
 
   if (!titleEn || !titleUa) {
-    redirect('/admin/types?error=Title EN and UA are required')
+    redirect('/admin/types/new?error=Title EN and UA are required')
   }
 
   const { error } = await supabase.from('practice_types').insert({
@@ -53,7 +53,7 @@ export async function createPracticeTypeAction(formData: FormData) {
   })
 
   if (error) {
-    redirect(`/admin/types?error=${encodeURIComponent(error.message)}`)
+    redirect(`/admin/types/new?error=${encodeURIComponent(error.message)}`)
   }
 
   revalidatePath('/admin/types')

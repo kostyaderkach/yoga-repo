@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { ArrowLeft, Pencil, Plus } from 'lucide-react'
 import { redirect } from 'next/navigation'
-import { createPracticeTypeAction } from './actions'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
 
 type PracticeType = {
@@ -61,54 +60,12 @@ export default async function AdminTypesPage({ searchParams }: AdminTypesPagePro
         {params.updated ? <p className="adminNotice successMessage">Practice type updated.</p> : null}
         {params.error ? <p className="adminNotice errorMessage">{params.error}</p> : null}
 
-        <form action={createPracticeTypeAction} className="adminForm">
-          <div className="adminFormGrid">
-            <label>
-              Title EN
-              <input name="title_en" placeholder="Vinyasa" required />
-            </label>
-            <label>
-              Title UA
-              <input name="title_ua" placeholder="Віньяса" required />
-            </label>
-          </div>
-
-          <label>
-            Description EN
-            <textarea name="description_en" placeholder="Dynamic flow practice..." />
-          </label>
-
-          <label>
-            Description UA
-            <textarea name="description_ua" placeholder="Динамічна практика..." />
-          </label>
-
-          <div className="adminFormGrid">
-            <label>
-              Difficulty
-              <select name="default_difficulty">
-                <option>Beginner</option>
-                <option>Intermediate</option>
-                <option>Advanced</option>
-                <option>All levels</option>
-              </select>
-            </label>
-            <label>
-              Color
-              <input name="color" placeholder="#7768f8" />
-            </label>
-          </div>
-
-          <label>
-            Image URL
-            <input name="image_url" placeholder="https://..." type="url" />
-          </label>
-
-          <button className="adminPrimaryButton" type="submit">
+        <div className="adminTopActions">
+          <Link className="adminPrimaryButton" href="/admin/types/new">
             <Plus size={18} />
-            Add type
-          </button>
-        </form>
+            Add practice type
+          </Link>
+        </div>
 
         <section className="adminList">
           <h2>Existing types</h2>
@@ -128,7 +85,14 @@ export default async function AdminTypesPage({ searchParams }: AdminTypesPagePro
               </article>
             ))
           ) : (
-            <p className="emptyState">No practice types yet.</p>
+            <div className="adminEmptyState">
+              <h3>No practice types yet</h3>
+              <p>Create your first yoga practice type, then use it later when building the class schedule.</p>
+              <Link className="adminSecondaryButton" href="/admin/types/new">
+                <Plus size={18} />
+                Add type
+              </Link>
+            </div>
           )}
         </section>
       </section>

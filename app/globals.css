@@ -696,6 +696,10 @@ button {
   margin: 18px 0 0;
 }
 
+.adminTopActions {
+  margin-top: 24px;
+}
+
 .adminForm {
   background: #fff;
   border: 1px solid rgba(119, 104, 248, 0.12);
@@ -750,6 +754,8 @@ button {
   gap: 8px;
   justify-content: center;
   min-height: 54px;
+  text-decoration: none;
+  width: 100%;
 }
 
 .adminList {
@@ -825,6 +831,41 @@ button {
   right: 14px;
   top: 14px;
   width: 40px;
+}
+
+.adminEmptyState {
+  background: #fff;
+  border: 1px solid rgba(119, 104, 248, 0.12);
+  border-radius: 24px;
+  padding: 22px;
+}
+
+.adminEmptyState h3 {
+  font-size: 20px;
+  font-weight: 800;
+  margin: 0;
+}
+
+.adminEmptyState p {
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.4;
+  margin: 10px 0 18px;
+}
+
+.adminSecondaryButton {
+  align-items: center;
+  background: var(--purple-soft);
+  border-radius: 999px;
+  color: var(--purple);
+  display: inline-flex;
+  font-size: 16px;
+  font-weight: 800;
+  gap: 8px;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 18px;
+  text-decoration: none;
 }
 
 .emptyState {
