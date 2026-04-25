@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowLeft, Plus } from 'lucide-react'
+import { ArrowLeft, Pencil, Plus } from 'lucide-react'
 import { redirect } from 'next/navigation'
 import { createPracticeTypeAction } from './actions'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
@@ -14,7 +14,7 @@ type PracticeType = {
 }
 
 type AdminTypesPageProps = {
-  searchParams?: Promise<{ created?: string; error?: string }>
+  searchParams?: Promise<{ created?: string; updated?: string; error?: string }>
 }
 
 export default async function AdminTypesPage({ searchParams }: AdminTypesPageProps) {
@@ -58,6 +58,7 @@ export default async function AdminTypesPage({ searchParams }: AdminTypesPagePro
         </header>
 
         {params.created ? <p className="adminNotice successMessage">Practice type created.</p> : null}
+        {params.updated ? <p className="adminNotice successMessage">Practice type updated.</p> : null}
         {params.error ? <p className="adminNotice errorMessage">{params.error}</p> : null}
 
         <form action={createPracticeTypeAction} className="adminForm">
@@ -121,6 +122,9 @@ export default async function AdminTypesPage({ searchParams }: AdminTypesPagePro
                   {type.description_en ? <small>{type.description_en}</small> : null}
                 </div>
                 <strong>{type.default_difficulty ?? 'All levels'}</strong>
+                <Link className="adminIconButton" href={`/admin/types/${type.id}/edit`} aria-label={`Edit ${type.title_en}`}>
+                  <Pencil size={17} />
+                </Link>
               </article>
             ))
           ) : (
