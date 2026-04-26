@@ -1739,6 +1739,30 @@ body {
   position: relative;
 }
 
+.classContentLink {
+  border-radius: 12px;
+  padding-right: 24px;
+  position: relative;
+  transition: background-color 140ms ease;
+}
+
+.classContentLink:active {
+  background: #f7f7f7;
+}
+
+.classOpenCue {
+  align-items: center;
+  color: #b3b3b3;
+  display: inline-flex;
+  height: 24px;
+  justify-content: center;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+}
+
 .scheduleClassCard::after {
   left: 26px;
   right: 18px;

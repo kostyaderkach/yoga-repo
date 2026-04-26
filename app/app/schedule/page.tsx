@@ -218,6 +218,9 @@ export default async function SchedulePage({ searchParams }: SchedulePageProps) 
                                 <Gauge size={13} />
                                 {practiceType?.default_difficulty ?? 'All levels'}
                               </span>
+                              <span className="classOpenCue" aria-hidden="true">
+                                <ChevronRight size={18} strokeWidth={2.1} />
+                              </span>
                             </Link>
                             <div className="classActions">
                               {isAdmin ? (
