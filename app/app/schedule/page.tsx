@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { CalendarDays, ChevronLeft, ChevronRight, Pencil, Plus, Trash2 } from 'lucide-react'
+import { CalendarDays, ChevronLeft, ChevronRight, Clock3, Gauge, Pencil, Plus, Timer, Trash2, UsersRound } from 'lucide-react'
 import { redirect } from 'next/navigation'
 import AppTabBar from '../tab-bar'
 import { bookClassAction, cancelBookingAction, deleteClassAction } from './actions'
@@ -12,6 +12,7 @@ type SchedulePageProps = {
 type PracticeType = {
   title_en?: string | null
   title_ua?: string | null
+  description_en?: string | null
   default_difficulty?: string | null
 }
 
@@ -102,7 +103,7 @@ export default async function SchedulePage({ searchParams }: SchedulePageProps) 
 
   const { data: classRows } = await supabase
     .from('classes')
-    .select('id, starts_at, duration_minutes, zoom_url, practice_types(title_en, title_ua, default_difficulty)')
+    .select('id, starts_at, duration_minutes, zoom_url, practice_types(title_en, title_ua, description_en, default_difficulty)')
     .gte('starts_at', selectedWeek.toISOString())
     .lt('starts_at', weekEnd.toISOString())
     .order('starts_at', { ascending: true })
@@ -202,14 +203,14 @@ export default async function SchedulePage({ searchParams }: SchedulePageProps) 
                           <span className="classColor" />
                           <div className="classContent">
                             <div className="classMeta">
-                              <span>{formatClassTime(item.starts_at)}</span>
-                              <span>{item.duration_minutes ?? 60} min</span>
-                              <span>{classBookings.length} booked</span>
+                              <span><Clock3 size={13} /> {formatClassTime(item.starts_at)}</span>
+                              <span><Timer size={13} /> {item.duration_minutes ?? 60} min</span>
+                              <span><UsersRound size={13} /> {classBookings.length} booked</span>
                             </div>
                             <h2>{practiceType?.title_en ?? 'Yoga class'}</h2>
-                            <p>{practiceType?.title_ua ?? 'Yoga'}</p>
+                            <p className="classDescription">{practiceType?.description_en ?? practiceType?.title_ua ?? 'Yoga practice'}</p>
                             <span className="classDifficulty">
-                              <i />
+                              <Gauge size={13} />
                               {practiceType?.default_difficulty ?? 'All levels'}
                             </span>
                           </div>
@@ -231,7 +232,7 @@ export default async function SchedulePage({ searchParams }: SchedulePageProps) 
                               <form action={cancelBookingAction}>
                                 <input name="booking_id" type="hidden" value={ownBooking.id} />
                                 <input name="week_start" type="hidden" value={toDateKey(selectedWeek)} />
-                                <button className="softClassButton" type="submit">Booked</button>
+                                <button className="softClassButton" type="submit">Unbook</button>
                               </form>
                             ) : (
                               <form action={bookClassAction}>

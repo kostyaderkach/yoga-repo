@@ -810,6 +810,12 @@ button {
   margin-left: 8px;
 }
 
+.classMeta span {
+  align-items: center;
+  display: inline-flex;
+  gap: 4px;
+}
+
 .scheduleClassCard h2 {
   font-size: 19px;
   font-weight: 800;
@@ -822,6 +828,14 @@ button {
   font-size: 15px;
   font-weight: 700;
   margin: 4px 0 0;
+}
+
+.classDescription {
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .classDifficulty {
@@ -1693,6 +1707,12 @@ body {
   font-weight: 600;
 }
 
+.classMeta span {
+  align-items: center;
+  display: inline-flex;
+  gap: 4px;
+}
+
 .scheduleClassCard h2 {
   font-size: 17px;
 }
@@ -1706,10 +1726,6 @@ body {
   color: var(--muted);
   font-size: 12px;
   font-weight: 700;
-}
-
-.classDifficulty i {
-  background: var(--accent);
 }
 
 .bookClassButton,
