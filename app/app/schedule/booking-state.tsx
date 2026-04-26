@@ -142,7 +142,7 @@ export function BookingActionButton({ variant = 'card' }: { variant?: 'card' | '
 
   return (
     <button className={className} disabled={isPending} onClick={toggleBooking} type="button">
-      {isPending ? 'Saving...' : booked ? (variant === 'detail' ? 'Unbook practice' : 'Unbook') : (variant === 'detail' ? 'Book practice' : 'Book')}
+      {isPending ? <span className="buttonSpinner" aria-label="Saving" /> : booked ? (variant === 'detail' ? 'Unbook practice' : 'Unbook') : (variant === 'detail' ? 'Book practice' : 'Book')}
     </button>
   )
 }
