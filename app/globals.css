@@ -1788,6 +1788,8 @@ body {
 
 .classDetailScreen {
   background: #fff;
+  height: 100svh;
+  overflow-y: auto;
   padding: 0;
 }
 
@@ -1822,9 +1824,15 @@ body {
 .detailHeroShell {
   background: #f2f2f2;
   height: min(54svh, 420px);
+  left: 0;
+  margin: 0 auto;
+  max-width: 480px;
   overflow: hidden;
-  position: sticky;
+  pointer-events: none;
+  position: fixed;
+  right: 0;
   top: 58px;
+  width: min(480px, 100%);
   z-index: 0;
 }
 
@@ -1839,7 +1847,7 @@ body {
   background: #fff;
   border-radius: 28px 28px 0 0;
   box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.06);
-  margin-top: -28px;
+  margin-top: calc(min(54svh, 420px) - 28px);
   min-height: calc(100svh - 86px);
   padding: 30px 18px 140px;
   position: relative;
@@ -1970,11 +1978,12 @@ body {
 .detailBottomAction {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0), #fff 28%);
   bottom: 0;
-  left: 50%;
+  left: 0;
+  margin: 0 auto;
   max-width: 480px;
   padding: 22px 18px max(16px, env(safe-area-inset-bottom));
   position: fixed;
-  transform: translateX(-50%);
+  right: 0;
   width: min(480px, 100%);
   z-index: 15;
 }
