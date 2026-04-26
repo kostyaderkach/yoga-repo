@@ -9,7 +9,6 @@ type PracticeType = {
   title_ua: string
   description_en: string | null
   default_difficulty: string | null
-  color: string | null
 }
 
 type AdminTypesPageProps = {
@@ -40,7 +39,7 @@ export default async function AdminTypesPage({ searchParams }: AdminTypesPagePro
 
   const { data: practiceTypes } = await supabase
     .from('practice_types')
-    .select('id, title_en, title_ua, description_en, default_difficulty, color')
+    .select('id, title_en, title_ua, description_en, default_difficulty')
     .order('created_at', { ascending: false })
 
   return (
@@ -72,7 +71,7 @@ export default async function AdminTypesPage({ searchParams }: AdminTypesPagePro
           {practiceTypes?.length ? (
             practiceTypes.map((type: PracticeType) => (
               <article className="adminTypeCard" key={type.id}>
-                <span style={{ background: type.color ?? '#7768f8' }} />
+                <span />
                 <div>
                   <h3>{type.title_en}</h3>
                   <p>{type.title_ua}</p>

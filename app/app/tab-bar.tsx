@@ -1,11 +1,12 @@
 import Link from 'next/link'
-import { CalendarDays, Home, ListChecks, UserRound } from 'lucide-react'
+import { CalendarDays, Home, ListChecks, Plus, UserRound } from 'lucide-react'
 
-type Tab = 'home' | 'schedule' | 'classes' | 'account'
+type Tab = 'home' | 'schedule' | 'add' | 'classes' | 'account'
 
 const tabs = [
   { id: 'home', label: 'Home', href: '/app', icon: Home },
   { id: 'schedule', label: 'Schedule', href: '/app/schedule', icon: CalendarDays },
+  { id: 'add', label: 'Add', href: '/app/schedule/new', icon: Plus },
   { id: 'classes', label: 'My Classes', href: '/app/my-classes', icon: ListChecks },
   { id: 'account', label: 'Account', href: '/app/account', icon: UserRound },
 ] satisfies Array<{
@@ -23,7 +24,7 @@ export default function AppTabBar({ active }: { active: Tab }) {
         const isActive = tab.id === active
 
         return (
-          <Link className={isActive ? 'active' : ''} href={tab.href} key={tab.id}>
+          <Link className={`${isActive ? 'active' : ''} ${tab.id === 'add' ? 'createTab' : ''}`} href={tab.href} key={tab.id}>
             <span>
               <Icon size={21} />
             </span>

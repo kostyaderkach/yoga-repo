@@ -1177,3 +1177,617 @@ button {
     padding-top: 30px;
   }
 }
+
+/* Threads-style density pass */
+:root {
+  --bg: #fff;
+  --surface: #fff;
+  --ink: #050505;
+  --muted: #999;
+  --line: #e7e7e7;
+  --field: #f5f5f5;
+  --purple: #050505;
+  --purple-soft: #f4f4f4;
+  --accent: #65c18c;
+}
+
+body {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.appStage {
+  align-items: stretch;
+  background: #fff;
+  padding: 0;
+}
+
+.welcomeScreen,
+.phoneFrame,
+.appScreen,
+.adminScreen {
+  border-radius: 0;
+  max-width: 480px;
+  min-height: 100svh;
+  width: min(480px, 100%);
+}
+
+.appScreen,
+.adminScreen {
+  padding: 26px 18px 96px;
+}
+
+.welcomeScreen {
+  padding: 180px 24px 24px;
+}
+
+.welcomeHero h1,
+.signupIntro h1,
+.authIntro h1,
+.pageTitleHeader h1,
+.profileHeader h1 {
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -0.7px;
+}
+
+.welcomeHero p,
+.signupIntro p,
+.authIntro p,
+.pageTitleHeader p,
+.profileHeader p {
+  color: var(--muted);
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.primaryPurpleButton,
+.limeButton,
+.adminPrimaryButton {
+  background: #000;
+  border-radius: 14px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  min-height: 48px;
+}
+
+.softPurpleButton,
+.ghostButton,
+.adminSecondaryButton {
+  background: var(--field);
+  border-radius: 14px;
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 700;
+  min-height: 48px;
+}
+
+.languageSwitch {
+  background: var(--field);
+}
+
+.languageSwitch button,
+.termsLine a,
+.inlineSwitch a,
+.loginOptions a {
+  color: var(--ink);
+}
+
+.signupScreen {
+  padding: 22px 18px 92px;
+}
+
+.signupIntro {
+  margin-top: 34px;
+}
+
+.signupForm {
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.signupForm label:not(.termsLine),
+.appForm label,
+.adminForm label {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.signupField,
+.fieldBox,
+.adminForm input,
+.adminForm textarea,
+.adminForm select {
+  background: var(--field);
+  border: 0;
+  border-radius: 14px;
+  min-height: 50px;
+}
+
+.signupField {
+  padding: 0 16px;
+}
+
+.signupField input,
+.adminForm input,
+.adminForm textarea,
+.adminForm select {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.termsLine,
+.loginOptions,
+.inlineSwitch {
+  font-size: 15px;
+}
+
+.termsLine input,
+.rememberLine input {
+  border: 2px solid #9f9f9f;
+  border-radius: 7px;
+  height: 24px;
+  width: 24px;
+}
+
+.termsLine input:checked,
+.rememberLine input:checked {
+  background: #000;
+  border-color: #000;
+  box-shadow: inset 0 0 0 4px #fff;
+}
+
+.bottomAction {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0), #fff 35%);
+  padding: 20px 18px max(16px, env(safe-area-inset-bottom));
+}
+
+.threadsTopBar {
+  align-items: center;
+  display: grid;
+  grid-template-columns: 42px 1fr 42px;
+  margin-bottom: 28px;
+}
+
+.threadsTopBar h1 {
+  font-size: 24px;
+  font-weight: 800;
+  margin: 0;
+  text-align: center;
+}
+
+.threadsTopBar button {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: var(--ink);
+  display: inline-flex;
+  height: 42px;
+  justify-content: center;
+  padding: 0;
+}
+
+.composerRow {
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 48px minmax(0, 1fr) auto;
+  margin: 0 -18px;
+  padding: 0 18px 18px;
+}
+
+.composerRow img,
+.profileAvatar {
+  border-radius: 50%;
+  height: 48px;
+  object-fit: cover;
+  width: 48px;
+}
+
+.composerRow strong {
+  display: block;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.composerRow p {
+  color: var(--muted);
+  font-size: 15px;
+  margin: 3px 0 0;
+}
+
+.composerRow a,
+.feedItem a {
+  background: #000;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 9px 14px;
+  white-space: nowrap;
+}
+
+.feedList {
+  margin: 0 -18px;
+}
+
+.feedItem {
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 48px minmax(0, 1fr);
+  padding: 18px;
+}
+
+.feedItem.muted {
+  opacity: 0.62;
+}
+
+.feedAvatar {
+  align-items: center;
+  background: var(--field);
+  border-radius: 50%;
+  display: inline-flex;
+  height: 48px;
+  justify-content: center;
+  width: 48px;
+}
+
+.feedAvatar.accent {
+  background: #eaf8f0;
+  color: #16803a;
+}
+
+.feedItem h2 {
+  font-size: 17px;
+  font-weight: 800;
+  margin: 0 0 6px;
+}
+
+.feedItem p {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.35;
+  margin: 0 0 14px;
+}
+
+.pageTitleHeader {
+  border-bottom: 1px solid var(--line);
+  margin: 0 -18px;
+  padding: 26px 18px 18px;
+}
+
+.pageTitleHeader h1,
+.profileHeader h1 {
+  margin: 0;
+}
+
+.pageTitleHeader p,
+.profileHeader p {
+  margin: 8px 0 0;
+}
+
+.profileHeader {
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 56px;
+  margin: 0 -18px;
+  padding: 28px 18px 20px;
+}
+
+.profileAvatar {
+  align-items: center;
+  background: #000;
+  color: #fff;
+  display: inline-flex;
+  font-size: 22px;
+  font-weight: 800;
+  height: 56px;
+  justify-content: center;
+  width: 56px;
+}
+
+.settingsList {
+  margin: 12px -18px 0;
+}
+
+.settingsRow {
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 30px minmax(0, 1fr) auto 20px;
+  min-height: 62px;
+  padding: 0 18px;
+}
+
+.settingsRow span {
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.settingsRow small {
+  color: var(--muted);
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.logoutButton {
+  background: transparent;
+  border: 0;
+  color: #f04438;
+  font-size: 17px;
+  margin: 22px 0 0;
+  padding: 0;
+}
+
+.appTabBar {
+  background: rgba(255, 255, 255, 0.96);
+  border-top: 1px solid var(--line);
+  grid-template-columns: repeat(5, 1fr);
+  max-width: 480px;
+  min-height: 76px;
+  padding-top: 6px;
+  width: min(480px, 100vw);
+}
+
+.appTabBar a {
+  color: #a8a8a8;
+  font-size: 0;
+  grid-template-rows: 42px;
+  min-height: 48px;
+}
+
+.appTabBar a span {
+  border-radius: 16px;
+  height: 42px;
+  width: 42px;
+}
+
+.appTabBar a.active {
+  color: #000;
+}
+
+.appTabBar a.active span {
+  background: transparent;
+  color: #000;
+}
+
+.appTabBar a.createTab span {
+  background: var(--field);
+  border-radius: 18px;
+  color: #999;
+  height: 50px;
+  width: 62px;
+}
+
+.scheduleScreen {
+  padding-top: 28px;
+}
+
+.scheduleHeader {
+  border-bottom: 1px solid var(--line);
+  display: block;
+  margin: 0 -18px;
+  padding: 0 18px 16px;
+}
+
+.scheduleHeader p,
+.placeholderLabel,
+.adminHeader p {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.scheduleHeader h1 {
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -0.7px;
+}
+
+.weekSwitcher {
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  margin: 0 -18px;
+}
+
+.weekSwitcher span {
+  color: var(--ink);
+}
+
+.scheduleDays {
+  gap: 0;
+  margin: 0 -18px;
+}
+
+.scheduleDay {
+  border-bottom: 1px solid var(--line);
+  gap: 0;
+}
+
+.scheduleDayHeader {
+  min-height: 48px;
+  padding: 0 18px;
+}
+
+.scheduleDayHeader strong {
+  background: transparent;
+  color: var(--ink);
+  font-size: 16px;
+  height: auto;
+  width: auto;
+}
+
+.dayAddButton,
+.classIconButton {
+  background: transparent;
+  border: 0;
+}
+
+.scheduleClassCard,
+.adminClassCard {
+  border: 0;
+  border-radius: 0;
+  grid-template-columns: 4px minmax(0, 1fr) auto;
+  padding: 14px 18px 16px;
+}
+
+.classColor {
+  background: var(--accent);
+  width: 4px;
+}
+
+.classMeta {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.scheduleClassCard h2 {
+  font-size: 17px;
+}
+
+.scheduleClassCard p {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.classDifficulty {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.classDifficulty i {
+  background: var(--accent);
+}
+
+.bookClassButton,
+.softClassButton {
+  border-radius: 999px;
+  font-size: 13px;
+  min-height: 34px;
+}
+
+.bookClassButton {
+  background: #000;
+}
+
+.softClassButton {
+  background: var(--field);
+  color: var(--ink);
+}
+
+.dayEmpty {
+  background: transparent;
+  border: 0;
+  border-top: 1px solid var(--line);
+  border-radius: 0;
+  padding: 14px 18px;
+  text-align: left;
+}
+
+.scheduleEmptyState,
+.adminEmptyState {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+}
+
+.floatingAddButton {
+  background: #000;
+  bottom: 88px;
+  box-shadow: none;
+  min-height: 46px;
+}
+
+.adminScreen,
+.scheduleFormScreen {
+  padding-top: 22px;
+}
+
+.adminHeader {
+  border-bottom: 1px solid var(--line);
+  margin: 0 -18px;
+  padding: 0 18px 16px;
+}
+
+.adminHeader h1 {
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.adminForm {
+  border: 0;
+  border-radius: 0;
+  gap: 14px;
+  margin: 0 -18px;
+  padding: 18px;
+}
+
+.adminFormGrid {
+  grid-template-columns: 1fr;
+}
+
+.adminList {
+  margin: 20px -18px 0;
+}
+
+.adminList h2 {
+  font-size: 15px;
+  margin: 0;
+  padding: 0 18px 10px;
+}
+
+.adminTypeCard {
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  gap: 12px;
+  grid-template-columns: 4px minmax(0, 1fr) auto;
+  margin: 0;
+  padding: 14px 62px 14px 18px;
+}
+
+.adminTypeCard > span {
+  background: var(--accent);
+  height: 100%;
+  min-height: 52px;
+  width: 4px;
+}
+
+.adminTypeCard h3 {
+  font-size: 16px;
+}
+
+.adminTypeCard p {
+  font-size: 14px;
+}
+
+.adminTypeCard strong {
+  background: var(--field);
+  color: var(--ink);
+}
+
+.adminIconButton {
+  background: transparent;
+  top: 12px;
+}
+
+.adminTopActions {
+  margin: 16px 0 0;
+}
+
+.formMessage,
+.adminNotice {
+  border-radius: 12px;
+  font-size: 14px;
+}
+
+@media (min-width: 521px) {
+  .appStage {
+    justify-items: center;
+  }
+}
