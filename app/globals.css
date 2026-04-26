@@ -2261,6 +2261,182 @@ body {
   background: #f3f3f3;
 }
 
+.myClassesScreen {
+  animation: pageFadeIn 160ms ease both;
+  padding-top: 28px;
+}
+
+.myClassesTabs {
+  align-items: center;
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 14px 0 12px;
+}
+
+.myClassesTabs a,
+.myClassesTabs span {
+  align-items: center;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 14px;
+  color: var(--ink);
+  display: inline-flex;
+  font-size: 14px;
+  font-weight: 600;
+  gap: 7px;
+  justify-content: center;
+  min-height: 38px;
+  padding: 0 12px;
+}
+
+.myClassesTabs .active {
+  background: #000;
+  border-color: #000;
+  color: #fff;
+}
+
+.myClassesTabs span span,
+.myClassesTabs a span {
+  border: 0;
+  color: inherit;
+  font-size: 12px;
+  min-height: 0;
+  padding: 0;
+}
+
+.myClassesList {
+  display: grid;
+  margin: 0 -18px;
+}
+
+.myClassCard {
+  align-items: flex-start;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 4px minmax(0, 1fr) auto;
+  padding: 14px 18px 16px;
+  position: relative;
+}
+
+.myClassCard::after {
+  background: var(--line);
+  bottom: 0;
+  content: "";
+  height: 1px;
+  left: 26px;
+  position: absolute;
+  right: 18px;
+  transform: scaleY(0.5);
+  transform-origin: bottom;
+}
+
+.myClassDate {
+  color: var(--muted) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  margin: 0 0 5px !important;
+  text-transform: uppercase;
+}
+
+.myClassCard h2 {
+  font-size: 17px;
+  margin: 0;
+}
+
+.myClassActions {
+  align-items: end;
+  display: grid;
+  gap: 8px;
+  justify-items: end;
+}
+
+.myClassActions .bookClassButton,
+.myClassActions .softClassButton {
+  align-items: center;
+  display: inline-flex;
+  gap: 6px;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.myClassPending [data-unbook-button] {
+  color: transparent;
+  position: relative;
+}
+
+.myClassPending [data-unbook-button]::after {
+  animation: buttonSpinner 780ms linear infinite;
+  border: 2px solid var(--ink);
+  border-right-color: transparent;
+  border-radius: 50%;
+  content: "";
+  height: 16px;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+}
+
+.myClassesEmpty {
+  align-items: center;
+  display: grid;
+  justify-items: center;
+  min-height: 330px;
+  padding: 42px 28px;
+  text-align: center;
+}
+
+.myClassesEmpty > span {
+  align-items: center;
+  background: var(--field);
+  border-radius: 50%;
+  display: inline-flex;
+  height: 58px;
+  justify-content: center;
+  width: 58px;
+}
+
+.myClassesEmpty h2 {
+  font-size: 22px;
+  margin: 16px 0 0;
+}
+
+.myClassesEmpty p {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.4;
+  margin: 8px 0 18px;
+}
+
+.myClassesEmpty a {
+  background: #000;
+  border-radius: 14px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 10px 16px;
+}
+
+.myClassRemoved {
+  color: var(--muted);
+  font-size: 14px;
+  padding: 18px;
+  position: relative;
+}
+
+.myClassRemoved::after {
+  background: var(--line);
+  bottom: 0;
+  content: "";
+  height: 1px;
+  left: 18px;
+  position: absolute;
+  right: 18px;
+  transform: scaleY(0.5);
+}
+
 @keyframes skeletonPulse {
   0%,
   100% {
