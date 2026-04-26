@@ -1574,6 +1574,7 @@ body {
 }
 
 .scheduleScreen {
+  animation: pageFadeIn 160ms ease both;
   padding-top: 28px;
 }
 
@@ -1749,8 +1750,9 @@ body {
 }
 
 .classMeta {
+  color: var(--ink);
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .classMeta span {
@@ -1764,14 +1766,15 @@ body {
 }
 
 .scheduleClassCard p {
+  color: var(--ink);
   font-size: 14px;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .classDifficulty {
-  color: var(--muted);
+  color: var(--ink);
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 400;
 }
 
 .bookClassButton,
@@ -1827,7 +1830,7 @@ body {
   background: rgba(255, 255, 255, 0.94);
   border: 0;
   display: grid;
-  grid-template-columns: 48px minmax(0, 1fr) 48px;
+  grid-template-columns: 96px minmax(0, 1fr) 96px;
   min-height: 58px;
   position: sticky;
   top: 0;
@@ -1842,6 +1845,12 @@ body {
   display: inline-flex;
   height: 48px;
   justify-content: center;
+}
+
+.detailTopBar .topBackLink,
+.adminHeader .topBackLink {
+  gap: 2px;
+  justify-content: flex-start;
 }
 
 .detailTopBar > span:nth-child(2) {
@@ -1924,7 +1933,7 @@ body {
   color: var(--ink);
   display: inline-flex;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 400;
   gap: 7px;
   min-height: 40px;
   padding: 0 12px;
@@ -1957,9 +1966,9 @@ body {
 }
 
 .detailSection > p {
-  color: #555;
+  color: var(--ink);
   font-size: 15px;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.45;
   margin: 10px 0 0;
 }
@@ -1975,7 +1984,7 @@ body {
   color: var(--muted);
   display: inline-flex;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 400;
   gap: 6px;
 }
 
@@ -2126,9 +2135,111 @@ body {
   position: relative;
 }
 
+.adminHeader {
+  grid-template-columns: 92px minmax(0, 1fr);
+}
+
+.adminHeader a.topBackLink {
+  color: var(--ink);
+  font-size: 17px;
+  font-weight: 400;
+  width: auto;
+}
+
 .adminHeader h1 {
   font-size: 28px;
   font-weight: 600;
+}
+
+.scheduleSkeletonList {
+  display: grid;
+  margin: 0 -18px;
+}
+
+.scheduleSkeletonCard {
+  align-items: center;
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 4px minmax(0, 1fr);
+  min-height: 92px;
+  padding: 14px 18px;
+  position: relative;
+}
+
+.scheduleSkeletonCard::after {
+  background: var(--line);
+  bottom: 0;
+  content: "";
+  height: 1px;
+  left: 26px;
+  position: absolute;
+  right: 18px;
+  transform: scaleY(0.5);
+  transform-origin: bottom;
+}
+
+.scheduleSkeletonCard > span,
+.scheduleSkeletonCard i,
+.scheduleSkeletonCard b,
+.scheduleSkeletonCard em,
+.scheduleSkeletonDay b {
+  animation: skeletonPulse 1.05s ease-in-out infinite;
+  background: #f1f1f1;
+  display: block;
+}
+
+.scheduleSkeletonCard > span {
+  border-radius: 999px;
+  height: 64px;
+  width: 4px;
+}
+
+.scheduleSkeletonCard div {
+  display: grid;
+  gap: 9px;
+}
+
+.scheduleSkeletonCard i {
+  border-radius: 999px;
+  height: 11px;
+  width: 58%;
+}
+
+.scheduleSkeletonCard b {
+  border-radius: 999px;
+  height: 18px;
+  width: 42%;
+}
+
+.scheduleSkeletonCard em {
+  border-radius: 999px;
+  height: 13px;
+  width: 76%;
+}
+
+.scheduleSkeletonDay b {
+  background: #f3f3f3;
+}
+
+@keyframes skeletonPulse {
+  0%,
+  100% {
+    opacity: 0.62;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0.72;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .adminForm {

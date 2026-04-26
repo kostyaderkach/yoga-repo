@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowLeft, Clock3, Gauge, Pencil, Timer } from 'lucide-react'
+import { ChevronLeft, Clock3, Gauge, Pencil, Timer } from 'lucide-react'
 import { redirect } from 'next/navigation'
 import { BookingActionButton, BookingCount, BookingParticipants, BookingStateProvider } from '../booking-state'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
@@ -129,8 +129,9 @@ export default async function ClassDetailPage({ params, searchParams }: ClassDet
     <main className="appStage">
       <section className="appScreen classDetailScreen">
         <header className="detailTopBar">
-          <Link href={`/app/schedule?week=${weekStart}`} aria-label="Back to schedule">
-            <ArrowLeft size={25} />
+          <Link className="topBackLink" href={`/app/schedule?week=${weekStart}`} aria-label="Back to schedule">
+            <ChevronLeft size={28} strokeWidth={2.2} />
+            Back
           </Link>
           <span>Practice</span>
           {isAdmin ? (

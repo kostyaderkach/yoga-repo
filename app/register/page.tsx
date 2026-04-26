@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowLeft } from 'lucide-react'
+import { ChevronLeft } from 'lucide-react'
 import RegisterForm from './register-form'
 
 export default function RegisterPage() {
@@ -7,7 +7,7 @@ export default function RegisterPage() {
     <main className="appStage">
       <section className="phoneFrame signupScreen">
         <Link className="backButton" href="/" aria-label="Back">
-          <ArrowLeft size={28} strokeWidth={2.4} />
+          <ChevronLeft size={30} strokeWidth={2.2} />
         </Link>
 
         <div className="signupIntro">

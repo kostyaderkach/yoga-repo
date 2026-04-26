@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowLeft, Save } from 'lucide-react'
+import { ChevronLeft, Save } from 'lucide-react'
 import { redirect } from 'next/navigation'
 import { updateClassAction } from '../../actions'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
@@ -85,8 +85,9 @@ export default async function EditClassPage({ params, searchParams }: EditClassP
     <main className="appStage">
       <section className="appScreen scheduleFormScreen">
         <header className="adminHeader">
-          <Link href={`/app/schedule?week=${local.date}`} aria-label="Back to schedule">
-            <ArrowLeft size={26} />
+          <Link className="topBackLink" href={`/app/schedule?week=${local.date}`} aria-label="Back to schedule">
+            <ChevronLeft size={28} strokeWidth={2.2} />
+            Back
           </Link>
           <div>
             <p>Schedule</p>

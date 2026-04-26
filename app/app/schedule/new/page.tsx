@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowLeft, Plus } from 'lucide-react'
+import { ChevronLeft, Plus } from 'lucide-react'
 import { redirect } from 'next/navigation'
 import { createClassAction } from '../actions'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
@@ -49,8 +49,9 @@ export default async function NewClassPage({ searchParams }: NewClassPageProps) 
     <main className="appStage">
       <section className="appScreen scheduleFormScreen">
         <header className="adminHeader">
-          <Link href={`/app/schedule?week=${params.date ?? todayKey()}`} aria-label="Back to schedule">
-            <ArrowLeft size={26} />
+          <Link className="topBackLink" href={`/app/schedule?week=${params.date ?? todayKey()}`} aria-label="Back to schedule">
+            <ChevronLeft size={28} strokeWidth={2.2} />
+            Back
           </Link>
           <div>
             <p>Schedule</p>

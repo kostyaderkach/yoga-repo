@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowLeft, Plus } from 'lucide-react'
+import { ChevronLeft, Plus } from 'lucide-react'
 import { redirect } from 'next/navigation'
 import { createPracticeTypeAction } from '../actions'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
@@ -34,8 +34,9 @@ export default async function NewPracticeTypePage({ searchParams }: NewPracticeT
     <main className="appStage">
       <section className="adminScreen">
         <header className="adminHeader">
-          <Link href="/admin/types" aria-label="Back to practice types">
-            <ArrowLeft size={26} />
+          <Link className="topBackLink" href="/admin/types" aria-label="Back to practice types">
+            <ChevronLeft size={28} strokeWidth={2.2} />
+            Back
           </Link>
           <div>
             <p>Admin Panel</p>

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowLeft, Pencil, Plus } from 'lucide-react'
+import { ChevronLeft, Pencil, Plus } from 'lucide-react'
 import { redirect } from 'next/navigation'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
 
@@ -46,8 +46,9 @@ export default async function AdminTypesPage({ searchParams }: AdminTypesPagePro
     <main className="appStage">
       <section className="adminScreen">
         <header className="adminHeader">
-          <Link href="/app/account" aria-label="Back to account">
-            <ArrowLeft size={26} />
+          <Link className="topBackLink" href="/app/account" aria-label="Back to account">
+            <ChevronLeft size={28} strokeWidth={2.2} />
+            Back
           </Link>
           <div>
             <p>Admin Panel</p>
