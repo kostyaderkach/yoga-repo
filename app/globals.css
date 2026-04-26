@@ -1929,9 +1929,12 @@ body {
 }
 
 .detailSectionHeader span {
+  align-items: center;
   color: var(--muted);
+  display: inline-flex;
   font-size: 14px;
   font-weight: 600;
+  gap: 6px;
 }
 
 .participantList {
@@ -1992,6 +1995,23 @@ body {
   margin: 0;
 }
 
+.bookingToast {
+  background: rgba(0, 0, 0, 0.88);
+  border-radius: 999px;
+  bottom: max(92px, calc(env(safe-area-inset-bottom) + 76px));
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  left: 50%;
+  max-width: calc(100% - 36px);
+  padding: 11px 16px;
+  position: fixed;
+  text-align: center;
+  transform: translateX(-50%);
+  width: max-content;
+  z-index: 60;
+}
+
 .detailPrimaryButton,
 .detailSecondaryButton {
   border: 0;
@@ -2000,6 +2020,14 @@ body {
   font-weight: 700;
   min-height: 50px;
   width: 100%;
+}
+
+.bookClassButton:disabled,
+.softClassButton:disabled,
+.detailPrimaryButton:disabled,
+.detailSecondaryButton:disabled {
+  cursor: wait;
+  opacity: 0.72;
 }
 
 .detailPrimaryButton {

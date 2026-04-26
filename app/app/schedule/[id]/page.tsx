@@ -1,7 +1,7 @@
 import Link from 'next/link'
-import { ArrowLeft, Clock3, Gauge, Pencil, Timer, UsersRound } from 'lucide-react'
+import { ArrowLeft, Clock3, Gauge, Pencil, Timer } from 'lucide-react'
 import { redirect } from 'next/navigation'
-import { bookClassAction, cancelBookingAction } from '../actions'
+import { BookingActionButton, BookingCount, BookingParticipants, BookingStateProvider } from '../booking-state'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
 
 type ClassDetailPageProps = {
@@ -114,7 +114,16 @@ export default async function ClassDetailPage({ params, searchParams }: ClassDet
   const ownBooking = bookings.find((booking) => booking.user_id === user.id)
   const isAdmin = profile?.role === 'admin'
   const weekStart = toDateKey(startOfWeek(new Date(item.starts_at)))
-  const returnTo = `/app/schedule/${item.id}`
+  const participants = bookings.map((booking, index) => {
+    const label = participantLabel(booking, index, user.id)
+
+    return {
+      id: booking.id,
+      initials: initials(label),
+      isCurrentUser: booking.user_id === user.id,
+      label,
+    }
+  })
 
   return (
     <main className="appStage">
@@ -137,69 +146,44 @@ export default async function ClassDetailPage({ params, searchParams }: ClassDet
           <img className="detailHeroImage" src={practiceType?.image_url || fallbackImage} alt="" />
         </div>
 
-        <section className="detailBody">
-          <p className="detailDate">{formatClassDate(item.starts_at)}</p>
-          <h1>{practiceType?.title_en ?? 'Yoga class'}</h1>
-          <div className="detailMetaGrid">
-            <span><Clock3 size={15} /> {formatClassTime(item.starts_at)}</span>
-            <span><Timer size={15} /> {item.duration_minutes ?? 60} min</span>
-            <span><Gauge size={15} /> {practiceType?.default_difficulty ?? 'All levels'}</span>
-            <span><UsersRound size={15} /> {bookings.length} booked</span>
-          </div>
-
-          {query.booked ? <p className="adminNotice successMessage">You are booked.</p> : null}
-          {query.canceled ? <p className="adminNotice successMessage">Booking canceled.</p> : null}
-          {query.error ? <p className="adminNotice errorMessage">{query.error}</p> : null}
-
-          <section className="detailSection">
-            <h2>Description</h2>
-            <p>{practiceType?.description_en || practiceType?.description_ua || 'A guided online yoga practice with live Zoom instruction.'}</p>
-          </section>
-
-          <section className="detailSection">
-            <div className="detailSectionHeader">
-              <h2>Booked students</h2>
-              <span>{bookings.length}</span>
+        <BookingStateProvider
+          classId={item.id}
+          initialBooked={Boolean(ownBooking)}
+          initialBookedCount={bookings.length}
+          initialParticipants={participants}
+        >
+          <section className="detailBody">
+            <p className="detailDate">{formatClassDate(item.starts_at)}</p>
+            <h1>{practiceType?.title_en ?? 'Yoga class'}</h1>
+            <div className="detailMetaGrid">
+              <span><Clock3 size={15} /> {formatClassTime(item.starts_at)}</span>
+              <span><Timer size={15} /> {item.duration_minutes ?? 60} min</span>
+              <span><Gauge size={15} /> {practiceType?.default_difficulty ?? 'All levels'}</span>
+              <BookingCount iconSize={15} />
             </div>
-            {bookings.length ? (
-              <div className="participantList">
-                {bookings.map((booking, index) => {
-                  const label = participantLabel(booking, index, user.id)
 
-                  return (
-                    <div className="participantRow" key={booking.id}>
-                      <span>{initials(label)}</span>
-                      <strong>{label}</strong>
-                    </div>
-                  )
-                })}
+            {query.error ? <p className="adminNotice errorMessage">{query.error}</p> : null}
+
+            <section className="detailSection">
+              <h2>Description</h2>
+              <p>{practiceType?.description_en || practiceType?.description_ua || 'A guided online yoga practice with live Zoom instruction.'}</p>
+            </section>
+
+            <section className="detailSection">
+              <div className="detailSectionHeader">
+                <h2>Booked students</h2>
+                <BookingCount iconSize={14} />
               </div>
-            ) : (
-              <p className="detailMuted">No students booked yet.</p>
-            )}
+              <BookingParticipants />
+            </section>
           </section>
-        </section>
 
-        {!isAdmin ? (
-          <div className="detailBottomAction">
-            {ownBooking ? (
-              <form action={cancelBookingAction}>
-                <input name="booking_id" type="hidden" value={ownBooking.id} />
-                <input name="class_id" type="hidden" value={item.id} />
-                <input name="week_start" type="hidden" value={weekStart} />
-                <input name="return_to" type="hidden" value={returnTo} />
-                <button className="detailSecondaryButton" type="submit">Unbook practice</button>
-              </form>
-            ) : (
-              <form action={bookClassAction}>
-                <input name="class_id" type="hidden" value={item.id} />
-                <input name="week_start" type="hidden" value={weekStart} />
-                <input name="return_to" type="hidden" value={returnTo} />
-                <button className="detailPrimaryButton" type="submit">Book practice</button>
-              </form>
-            )}
-          </div>
-        ) : null}
+          {!isAdmin ? (
+            <div className="detailBottomAction">
+              <BookingActionButton variant="detail" />
+            </div>
+          ) : null}
+        </BookingStateProvider>
       </section>
     </main>
   )

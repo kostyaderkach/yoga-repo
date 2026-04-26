@@ -220,3 +220,102 @@ export async function cancelBookingAction(formData: FormData) {
   }
   redirect(`${returnTarget}${returnTarget.includes('?') ? '&' : '?'}canceled=1`)
 }
+
+async function getClassBookingCount(supabase: Awaited<ReturnType<typeof createSupabaseServerClient>>, classId: string) {
+  const { count } = await supabase
+    .from('bookings')
+    .select('id', { count: 'exact', head: true })
+    .eq('class_id', classId)
+
+  return count ?? 0
+}
+
+export async function setClassBookingAction(classId: string, shouldBook: boolean) {
+  const { supabase, user } = await getUserClient()
+
+  if (!classId) {
+    return {
+      ok: false,
+      booked: false,
+      bookingId: null,
+      bookedCount: 0,
+      message: 'Class is required',
+    }
+  }
+
+  const { data: existingBooking } = await supabase
+    .from('bookings')
+    .select('id')
+    .eq('class_id', classId)
+    .eq('user_id', user.id)
+    .maybeSingle()
+
+  if (shouldBook) {
+    if (existingBooking) {
+      return {
+        ok: true,
+        booked: true,
+        bookingId: existingBooking.id as string,
+        bookedCount: await getClassBookingCount(supabase, classId),
+        message: 'You are booked.',
+      }
+    }
+
+    const { data: booking, error } = await supabase
+      .from('bookings')
+      .insert({
+        class_id: classId,
+        user_id: user.id,
+      })
+      .select('id')
+      .single()
+
+    if (error) {
+      return {
+        ok: false,
+        booked: false,
+        bookingId: null,
+        bookedCount: await getClassBookingCount(supabase, classId),
+        message: error.message,
+      }
+    }
+
+    revalidatePath('/app/schedule')
+    revalidatePath(`/app/schedule/${classId}`)
+
+    return {
+      ok: true,
+      booked: true,
+      bookingId: booking.id as string,
+      bookedCount: await getClassBookingCount(supabase, classId),
+      message: 'You are booked.',
+    }
+  }
+
+  const { error } = await supabase
+    .from('bookings')
+    .delete()
+    .eq('class_id', classId)
+    .eq('user_id', user.id)
+
+  if (error) {
+    return {
+      ok: false,
+      booked: Boolean(existingBooking),
+      bookingId: existingBooking?.id ?? null,
+      bookedCount: await getClassBookingCount(supabase, classId),
+      message: error.message,
+    }
+  }
+
+  revalidatePath('/app/schedule')
+  revalidatePath(`/app/schedule/${classId}`)
+
+  return {
+    ok: true,
+    booked: false,
+    bookingId: null,
+    bookedCount: await getClassBookingCount(supabase, classId),
+    message: 'Booking canceled.',
+  }
+}

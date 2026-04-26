@@ -1,8 +1,9 @@
 import Link from 'next/link'
-import { CalendarDays, ChevronLeft, ChevronRight, Clock3, Gauge, Pencil, Plus, Timer, Trash2, UsersRound } from 'lucide-react'
+import { CalendarDays, ChevronLeft, ChevronRight, Clock3, Gauge, Pencil, Plus, Timer, Trash2 } from 'lucide-react'
 import { redirect } from 'next/navigation'
 import AppTabBar from '../tab-bar'
-import { bookClassAction, cancelBookingAction, deleteClassAction } from './actions'
+import { deleteClassAction } from './actions'
+import { BookingActionButton, BookingCount, BookingStateProvider } from './booking-state'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
 
 type SchedulePageProps = {
@@ -168,8 +169,6 @@ export default async function SchedulePage({ searchParams }: SchedulePageProps) 
         {params.created ? <p className="adminNotice successMessage">Class created.</p> : null}
         {params.updated ? <p className="adminNotice successMessage">Class updated.</p> : null}
         {params.deleted ? <p className="adminNotice successMessage">Class deleted.</p> : null}
-        {params.booked ? <p className="adminNotice successMessage">You are booked.</p> : null}
-        {params.canceled ? <p className="adminNotice successMessage">Booking canceled.</p> : null}
         {params.error ? <p className="adminNotice errorMessage">{params.error}</p> : null}
 
         <div className="scheduleDays">
@@ -199,51 +198,47 @@ export default async function SchedulePage({ searchParams }: SchedulePageProps) 
                       const ownBooking = classBookings.find((booking) => booking.user_id === user.id)
 
                       return (
-                        <article className={`scheduleClassCard ${isAdmin ? 'adminClassCard' : ''}`} key={item.id}>
-                          <span className="classColor" />
-                          <Link className="classContent classContentLink" href={`/app/schedule/${item.id}`}>
-                            <div className="classMeta">
-                              <span><Clock3 size={13} /> {formatClassTime(item.starts_at)}</span>
-                              <span><Timer size={13} /> {item.duration_minutes ?? 60} min</span>
-                              <span><UsersRound size={13} /> {classBookings.length} booked</span>
+                        <BookingStateProvider
+                          classId={item.id}
+                          initialBooked={Boolean(ownBooking)}
+                          initialBookedCount={classBookings.length}
+                          key={item.id}
+                        >
+                          <article className={`scheduleClassCard ${isAdmin ? 'adminClassCard' : ''}`}>
+                            <span className="classColor" />
+                            <Link className="classContent classContentLink" href={`/app/schedule/${item.id}`}>
+                              <div className="classMeta">
+                                <span><Clock3 size={13} /> {formatClassTime(item.starts_at)}</span>
+                                <span><Timer size={13} /> {item.duration_minutes ?? 60} min</span>
+                                <BookingCount iconSize={13} />
+                              </div>
+                              <h2>{practiceType?.title_en ?? 'Yoga class'}</h2>
+                              <p className="classDescription">{practiceType?.description_en ?? practiceType?.title_ua ?? 'Yoga practice'}</p>
+                              <span className="classDifficulty">
+                                <Gauge size={13} />
+                                {practiceType?.default_difficulty ?? 'All levels'}
+                              </span>
+                            </Link>
+                            <div className="classActions">
+                              {isAdmin ? (
+                                <>
+                                  <Link className="classIconButton" href={`/app/schedule/${item.id}/edit`} aria-label="Edit class">
+                                    <Pencil size={16} />
+                                  </Link>
+                                  <form action={deleteClassAction}>
+                                    <input name="id" type="hidden" value={item.id} />
+                                    <input name="week_start" type="hidden" value={toDateKey(selectedWeek)} />
+                                    <button className="classIconButton danger" type="submit" aria-label="Delete class">
+                                      <Trash2 size={16} />
+                                    </button>
+                                  </form>
+                                </>
+                              ) : (
+                                <BookingActionButton />
+                              )}
                             </div>
-                            <h2>{practiceType?.title_en ?? 'Yoga class'}</h2>
-                            <p className="classDescription">{practiceType?.description_en ?? practiceType?.title_ua ?? 'Yoga practice'}</p>
-                            <span className="classDifficulty">
-                              <Gauge size={13} />
-                              {practiceType?.default_difficulty ?? 'All levels'}
-                            </span>
-                          </Link>
-                          <div className="classActions">
-                            {isAdmin ? (
-                              <>
-                                <Link className="classIconButton" href={`/app/schedule/${item.id}/edit`} aria-label="Edit class">
-                                  <Pencil size={16} />
-                                </Link>
-                                <form action={deleteClassAction}>
-                                  <input name="id" type="hidden" value={item.id} />
-                                  <input name="week_start" type="hidden" value={toDateKey(selectedWeek)} />
-                                  <button className="classIconButton danger" type="submit" aria-label="Delete class">
-                                    <Trash2 size={16} />
-                                  </button>
-                                </form>
-                              </>
-                            ) : ownBooking ? (
-                              <form action={cancelBookingAction}>
-                                <input name="booking_id" type="hidden" value={ownBooking.id} />
-                                <input name="class_id" type="hidden" value={item.id} />
-                                <input name="week_start" type="hidden" value={toDateKey(selectedWeek)} />
-                                <button className="softClassButton" type="submit">Unbook</button>
-                              </form>
-                            ) : (
-                              <form action={bookClassAction}>
-                                <input name="class_id" type="hidden" value={item.id} />
-                                <input name="week_start" type="hidden" value={toDateKey(selectedWeek)} />
-                                <button className="bookClassButton" type="submit">Book</button>
-                              </form>
-                            )}
-                          </div>
-                        </article>
+                          </article>
+                        </BookingStateProvider>
                       )
                     })
                   ) : (
