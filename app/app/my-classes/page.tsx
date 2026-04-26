@@ -126,7 +126,7 @@ export default async function MyClassesPage({ searchParams }: MyClassesPageProps
               const practiceType = getPracticeType(item.practice_types)
 
               return (
-                <MyClassBookingCard classId={item.id} key={booking.id}>
+                <MyClassBookingCard bookingId={booking.id} classId={item.id} key={booking.id}>
                   <article className="myClassCard">
                     <span className="classColor" />
                     <Link className="classContent classContentLink" href={`/app/schedule/${item.id}`}>

@@ -1,14 +1,17 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import { useState, type MouseEvent, type ReactNode } from 'react'
-import { setClassBookingAction } from '../schedule/actions'
+import { cancelMyClassBookingAction } from './actions'
 
 type MyClassBookingCardProps = {
+  bookingId: string
   children: ReactNode
   classId: string
 }
 
-export default function MyClassBookingCard({ children, classId }: MyClassBookingCardProps) {
+export default function MyClassBookingCard({ bookingId, children, classId }: MyClassBookingCardProps) {
+  const router = useRouter()
   const [hidden, setHidden] = useState(false)
   const [isPending, setIsPending] = useState(false)
   const [toast, setToast] = useState<string | null>(null)
@@ -26,10 +29,13 @@ export default function MyClassBookingCard({ children, classId }: MyClassBooking
       button.disabled = true
     }
 
-    const result = await setClassBookingAction(classId, false)
+    const result = await cancelMyClassBookingAction(bookingId, classId)
 
     if (result.ok) {
+      setToast(result.message)
       setHidden(true)
+      router.refresh()
+      window.setTimeout(() => setToast(null), 2600)
     } else {
       setToast(result.message)
       setIsPending(false)
@@ -41,7 +47,12 @@ export default function MyClassBookingCard({ children, classId }: MyClassBooking
   }
 
   if (hidden) {
-    return <div className="myClassRemoved">Booking canceled.</div>
+    return (
+      <>
+        <div className="myClassRemoved">Booking canceled.</div>
+        {toast ? <div className="bookingToast">{toast}</div> : null}
+      </>
+    )
   }
 
   return (
