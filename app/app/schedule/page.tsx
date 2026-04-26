@@ -201,7 +201,7 @@ export default async function SchedulePage({ searchParams }: SchedulePageProps) 
                       return (
                         <article className={`scheduleClassCard ${isAdmin ? 'adminClassCard' : ''}`} key={item.id}>
                           <span className="classColor" />
-                          <div className="classContent">
+                          <Link className="classContent classContentLink" href={`/app/schedule/${item.id}`}>
                             <div className="classMeta">
                               <span><Clock3 size={13} /> {formatClassTime(item.starts_at)}</span>
                               <span><Timer size={13} /> {item.duration_minutes ?? 60} min</span>
@@ -213,7 +213,7 @@ export default async function SchedulePage({ searchParams }: SchedulePageProps) 
                               <Gauge size={13} />
                               {practiceType?.default_difficulty ?? 'All levels'}
                             </span>
-                          </div>
+                          </Link>
                           <div className="classActions">
                             {isAdmin ? (
                               <>
@@ -231,6 +231,7 @@ export default async function SchedulePage({ searchParams }: SchedulePageProps) 
                             ) : ownBooking ? (
                               <form action={cancelBookingAction}>
                                 <input name="booking_id" type="hidden" value={ownBooking.id} />
+                                <input name="class_id" type="hidden" value={item.id} />
                                 <input name="week_start" type="hidden" value={toDateKey(selectedWeek)} />
                                 <button className="softClassButton" type="submit">Unbook</button>
                               </form>

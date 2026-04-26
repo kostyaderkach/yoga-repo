@@ -11,6 +11,11 @@ function getFormValue(formData: FormData, key: string) {
   return typeof value === 'string' ? value.trim() : ''
 }
 
+function getReturnTarget(formData: FormData, fallback: string) {
+  const returnTo = getFormValue(formData, 'return_to')
+  return returnTo.startsWith('/app/') ? returnTo : fallback
+}
+
 function getTimeZoneOffset(date: Date, timezone: string) {
   const parts = new Intl.DateTimeFormat('en-US', {
     timeZone: timezone,
@@ -159,9 +164,11 @@ export async function bookClassAction(formData: FormData) {
   const { supabase, user } = await getUserClient()
   const classId = getFormValue(formData, 'class_id')
   const weekStart = getFormValue(formData, 'week_start')
+  const fallback = `/app/schedule?week=${weekStart}`
+  const returnTarget = getReturnTarget(formData, fallback)
 
   if (!classId) {
-    redirect(`/app/schedule?week=${weekStart}&error=Class is required`)
+    redirect(`${returnTarget}${returnTarget.includes('?') ? '&' : '?'}error=Class is required`)
   }
 
   const { data: existingBooking } = await supabase
@@ -172,7 +179,7 @@ export async function bookClassAction(formData: FormData) {
     .maybeSingle()
 
   if (existingBooking) {
-    redirect(`/app/schedule?week=${weekStart}&booked=1`)
+    redirect(`${returnTarget}${returnTarget.includes('?') ? '&' : '?'}booked=1`)
   }
 
   const { error } = await supabase.from('bookings').insert({
@@ -181,28 +188,35 @@ export async function bookClassAction(formData: FormData) {
   })
 
   if (error) {
-    redirect(`/app/schedule?week=${weekStart}&error=${encodeURIComponent(error.message)}`)
+    redirect(`${returnTarget}${returnTarget.includes('?') ? '&' : '?'}error=${encodeURIComponent(error.message)}`)
   }
 
   revalidatePath('/app/schedule')
-  redirect(`/app/schedule?week=${weekStart}&booked=1`)
+  revalidatePath(`/app/schedule/${classId}`)
+  redirect(`${returnTarget}${returnTarget.includes('?') ? '&' : '?'}booked=1`)
 }
 
 export async function cancelBookingAction(formData: FormData) {
   const { supabase, user } = await getUserClient()
   const bookingId = getFormValue(formData, 'booking_id')
+  const classId = getFormValue(formData, 'class_id')
   const weekStart = getFormValue(formData, 'week_start')
+  const fallback = `/app/schedule?week=${weekStart}`
+  const returnTarget = getReturnTarget(formData, fallback)
 
   if (!bookingId) {
-    redirect(`/app/schedule?week=${weekStart}&error=Booking is required`)
+    redirect(`${returnTarget}${returnTarget.includes('?') ? '&' : '?'}error=Booking is required`)
   }
 
   const { error } = await supabase.from('bookings').delete().eq('id', bookingId).eq('user_id', user.id)
 
   if (error) {
-    redirect(`/app/schedule?week=${weekStart}&error=${encodeURIComponent(error.message)}`)
+    redirect(`${returnTarget}${returnTarget.includes('?') ? '&' : '?'}error=${encodeURIComponent(error.message)}`)
   }
 
   revalidatePath('/app/schedule')
-  redirect(`/app/schedule?week=${weekStart}&canceled=1`)
+  if (classId) {
+    revalidatePath(`/app/schedule/${classId}`)
+  }
+  redirect(`${returnTarget}${returnTarget.includes('?') ? '&' : '?'}canceled=1`)
 }

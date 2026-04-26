@@ -795,6 +795,10 @@ button {
   min-width: 0;
 }
 
+.classContentLink {
+  display: block;
+}
+
 .classMeta {
   color: var(--muted);
   display: flex;
@@ -1780,6 +1784,197 @@ body {
   bottom: 88px;
   box-shadow: none;
   min-height: 46px;
+}
+
+.classDetailScreen {
+  padding: 0 0 112px;
+}
+
+.detailTopBar {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.94);
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) 48px;
+  left: 50%;
+  max-width: 480px;
+  min-height: 58px;
+  position: sticky;
+  top: 0;
+  transform: translateX(-50%);
+  width: min(480px, 100%);
+  z-index: 10;
+}
+
+.detailTopBar a,
+.detailTopBar > span:last-child {
+  align-items: center;
+  color: var(--ink);
+  display: inline-flex;
+  height: 48px;
+  justify-content: center;
+}
+
+.detailTopBar > span:nth-child(2) {
+  font-size: 17px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.detailHeroImage {
+  aspect-ratio: 1.18;
+  display: block;
+  object-fit: cover;
+  width: 100%;
+}
+
+.detailBody {
+  padding: 18px;
+}
+
+.detailDate {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 8px;
+}
+
+.detailBody h1 {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+  line-height: 1.12;
+  margin: 0;
+}
+
+.detailMetaGrid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 18px;
+}
+
+.detailMetaGrid span {
+  align-items: center;
+  background: var(--field);
+  border-radius: 14px;
+  color: var(--ink);
+  display: inline-flex;
+  font-size: 14px;
+  font-weight: 600;
+  gap: 7px;
+  min-height: 40px;
+  padding: 0 12px;
+}
+
+.detailSection {
+  border-top: 1px solid var(--line);
+  margin-top: 22px;
+  padding-top: 18px;
+}
+
+.detailSection h2,
+.detailSectionHeader h2 {
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.detailSection > p {
+  color: #555;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.45;
+  margin: 10px 0 0;
+}
+
+.detailSectionHeader {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.detailSectionHeader span {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.participantList {
+  display: grid;
+  gap: 0;
+  margin-top: 10px;
+}
+
+.participantRow {
+  align-items: center;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 36px minmax(0, 1fr);
+  min-height: 54px;
+}
+
+.participantRow:first-child {
+  border-top: 0;
+}
+
+.participantRow span {
+  align-items: center;
+  background: #000;
+  border-radius: 50%;
+  color: #fff;
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 700;
+  height: 36px;
+  justify-content: center;
+  width: 36px;
+}
+
+.participantRow strong {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.detailMuted {
+  color: var(--muted) !important;
+}
+
+.detailBottomAction {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0), #fff 28%);
+  bottom: 0;
+  left: 50%;
+  max-width: 480px;
+  padding: 22px 18px max(16px, env(safe-area-inset-bottom));
+  position: fixed;
+  transform: translateX(-50%);
+  width: min(480px, 100%);
+  z-index: 15;
+}
+
+.detailBottomAction form {
+  margin: 0;
+}
+
+.detailPrimaryButton,
+.detailSecondaryButton {
+  border: 0;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 700;
+  min-height: 50px;
+  width: 100%;
+}
+
+.detailPrimaryButton {
+  background: #000;
+  color: #fff;
+}
+
+.detailSecondaryButton {
+  background: var(--field);
+  color: var(--ink);
 }
 
 .adminScreen,
