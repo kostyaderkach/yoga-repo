@@ -1787,7 +1787,8 @@ body {
 }
 
 .classDetailScreen {
-  padding: 0 0 112px;
+  background: #fff;
+  padding: 0;
 }
 
 .detailTopBar {
@@ -1796,14 +1797,11 @@ body {
   border-bottom: 1px solid var(--line);
   display: grid;
   grid-template-columns: 48px minmax(0, 1fr) 48px;
-  left: 50%;
-  max-width: 480px;
   min-height: 58px;
   position: sticky;
   top: 0;
-  transform: translateX(-50%);
-  width: min(480px, 100%);
-  z-index: 10;
+  width: 100%;
+  z-index: 30;
 }
 
 .detailTopBar a,
@@ -1821,15 +1819,43 @@ body {
   text-align: center;
 }
 
+.detailHeroShell {
+  background: #f2f2f2;
+  height: min(54svh, 420px);
+  overflow: hidden;
+  position: sticky;
+  top: 58px;
+  z-index: 0;
+}
+
 .detailHeroImage {
-  aspect-ratio: 1.18;
   display: block;
+  height: 100%;
   object-fit: cover;
   width: 100%;
 }
 
 .detailBody {
-  padding: 18px;
+  background: #fff;
+  border-radius: 28px 28px 0 0;
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.06);
+  margin-top: -28px;
+  min-height: calc(100svh - 86px);
+  padding: 30px 18px 140px;
+  position: relative;
+  z-index: 2;
+}
+
+.detailBody::before {
+  background: #d9d9d9;
+  border-radius: 999px;
+  content: "";
+  height: 4px;
+  left: 50%;
+  position: absolute;
+  top: 12px;
+  transform: translateX(-50%);
+  width: 42px;
 }
 
 .detailDate {

@@ -133,7 +133,9 @@ export default async function ClassDetailPage({ params, searchParams }: ClassDet
           )}
         </header>
 
-        <img className="detailHeroImage" src={practiceType?.image_url || fallbackImage} alt="" />
+        <div className="detailHeroShell">
+          <img className="detailHeroImage" src={practiceType?.image_url || fallbackImage} alt="" />
+        </div>
 
         <section className="detailBody">
           <p className="detailDate">{formatClassDate(item.starts_at)}</p>
