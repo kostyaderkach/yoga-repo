@@ -59,16 +59,6 @@ export default async function NewPracticeTypePage({ searchParams }: NewPracticeT
           </div>
 
           <label>
-            Short description EN
-            <textarea name="description_en" placeholder="Dynamic flow practice..." />
-          </label>
-
-          <label>
-            Short description UA
-            <textarea name="description_ua" placeholder="Динамічна практика..." />
-          </label>
-
-          <label>
             Full description EN
             <textarea className="largeTextarea" name="full_description_en" placeholder="Longer description for the detail screen..." />
           </label>

@@ -1,6 +1,7 @@
 import Link from 'next/link'
-import { ChevronLeft, Clock3, Gauge, Pencil, Timer } from 'lucide-react'
+import { Clock3, Gauge, Pencil, Timer } from 'lucide-react'
 import { redirect } from 'next/navigation'
+import AnimatedBackLink from '../animated-back-link'
 import { BookingActionButton, BookingCount, BookingParticipants, BookingStateProvider } from '../booking-state'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
 
@@ -136,10 +137,7 @@ export default async function ClassDetailPage({ params, searchParams }: ClassDet
     <main className="appStage">
       <section className="appScreen classDetailScreen">
         <header className="detailTopBar">
-          <Link className="topBackLink" href={`/app/schedule?week=${weekStart}`} aria-label="Back to schedule">
-            <ChevronLeft size={28} strokeWidth={2.2} />
-            Back
-          </Link>
+          <AnimatedBackLink href={`/app/schedule?week=${weekStart}`} />
           <span>Practice</span>
           {isAdmin ? (
             <Link href={`/app/schedule/${item.id}/edit`} aria-label="Edit class">

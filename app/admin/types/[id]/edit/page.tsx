@@ -73,24 +73,6 @@ export default async function EditPracticeTypePage({ params, searchParams }: Edi
           </div>
 
           <label>
-            Short description EN
-            <textarea
-              name="description_en"
-              placeholder="Dynamic flow practice..."
-              defaultValue={practiceType.description_en ?? ''}
-            />
-          </label>
-
-          <label>
-            Short description UA
-            <textarea
-              name="description_ua"
-              placeholder="Динамічна практика..."
-              defaultValue={practiceType.description_ua ?? ''}
-            />
-          </label>
-
-          <label>
             Full description EN
             <textarea
               className="largeTextarea"

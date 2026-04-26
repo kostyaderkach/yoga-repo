@@ -1206,7 +1206,7 @@ button {
   --field: #f5f5f5;
   --purple: #050505;
   --purple-soft: #f4f4f4;
-  --accent: #fff088;
+  --accent: #ff888c;
 }
 
 body {
@@ -1705,7 +1705,7 @@ body {
 .scheduleDayHeader div {
   border: 0;
   border-radius: 999px;
-  gap: 8px;
+  gap: 4px;
   min-height: 30px;
   padding: 0;
 }
@@ -1714,14 +1714,16 @@ body {
   color: var(--muted);
   font-size: 12px;
   font-weight: 700;
+  text-transform: uppercase;
 }
 
 .scheduleDayHeader strong {
   background: transparent;
   color: var(--ink);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   height: auto;
+  text-transform: uppercase;
   width: auto;
 }
 
@@ -1750,7 +1752,7 @@ body {
 .adminClassCard {
   border: 0;
   border-radius: 0;
-  grid-template-columns: 4px minmax(0, 1fr) auto;
+  grid-template-columns: 4px minmax(0, 1fr);
   padding: 14px 18px 16px;
   position: relative;
 }
@@ -1791,7 +1793,7 @@ body {
 
 .classMeta {
   color: var(--ink);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 400;
 }
 
@@ -1805,10 +1807,21 @@ body {
   font-size: 17px;
 }
 
-.scheduleClassCard p {
+.classFacts {
+  align-items: center;
   color: var(--ink);
-  font-size: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 12px;
   font-weight: 400;
+  gap: 10px;
+  margin-top: 9px;
+}
+
+.classFacts span {
+  align-items: center;
+  display: inline-flex;
+  gap: 4px;
 }
 
 .classDifficulty {
@@ -1834,6 +1847,27 @@ body {
   background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.12);
   color: var(--ink);
+}
+
+.classActions {
+  grid-column: 2;
+  justify-items: stretch;
+  margin-top: 2px;
+}
+
+.classActions .bookClassButton,
+.classActions .softClassButton {
+  width: 100%;
+}
+
+.adminClassCard {
+  grid-template-columns: 4px minmax(0, 1fr) auto;
+}
+
+.adminClassCard .classActions {
+  grid-column: 3;
+  justify-items: end;
+  margin-top: 0;
 }
 
 .dayEmpty {
@@ -1901,7 +1935,8 @@ body {
 
 .detailHeroShell {
   background: #f2f2f2;
-  height: min(54svh, 420px);
+  animation: detailSlideIn 220ms ease both;
+  height: min(40svh, 330px);
   left: 0;
   margin: 0 auto;
   max-width: 480px;
@@ -1922,10 +1957,11 @@ body {
 }
 
 .detailBody {
+  animation: detailSlideIn 240ms ease 20ms both;
   background: #fff;
   border-radius: 28px 28px 0 0;
   box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.06);
-  margin-top: calc(min(54svh, 420px) - 28px);
+  margin-top: calc(min(40svh, 330px) - 28px);
   min-height: calc(100svh - 86px);
   padding: 30px 18px 140px;
   position: relative;
@@ -2083,6 +2119,7 @@ body {
 }
 
 .detailBottomAction {
+  animation: detailSlideIn 240ms ease 40ms both;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0), #fff 28%);
   bottom: 0;
   left: 0;
@@ -2097,6 +2134,17 @@ body {
 
 .detailBottomAction form {
   margin: 0;
+}
+
+.detailTopBar {
+  animation: detailSlideIn 180ms ease both;
+}
+
+.detailLeaving .detailTopBar,
+.detailLeaving .detailHeroShell,
+.detailLeaving .detailBody,
+.detailLeaving .detailBottomAction {
+  animation: detailSlideOut 180ms ease both;
 }
 
 .bookingToast {
@@ -2131,6 +2179,30 @@ body {
 @keyframes buttonSpinner {
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes detailSlideIn {
+  from {
+    opacity: 0.82;
+    transform: translateX(22px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes detailSlideOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(26px);
   }
 }
 
@@ -2314,7 +2386,7 @@ body {
   align-items: flex-start;
   display: grid;
   gap: 12px;
-  grid-template-columns: 4px minmax(0, 1fr) auto;
+  grid-template-columns: 4px minmax(0, 1fr);
   padding: 14px 18px 16px;
   position: relative;
 }
@@ -2349,6 +2421,7 @@ body {
   display: grid;
   gap: 8px;
   justify-items: end;
+  grid-column: 2;
 }
 
 .myClassActions .bookClassButton,

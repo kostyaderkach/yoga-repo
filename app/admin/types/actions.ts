@@ -45,8 +45,8 @@ export async function createPracticeTypeAction(formData: FormData) {
   const { error } = await supabase.from('practice_types').insert({
     title_en: titleEn,
     title_ua: titleUa,
-    description_en: getFormValue(formData, 'description_en') || null,
-    description_ua: getFormValue(formData, 'description_ua') || null,
+    description_en: null,
+    description_ua: null,
     full_description_en: getFormValue(formData, 'full_description_en') || null,
     full_description_ua: getFormValue(formData, 'full_description_ua') || null,
     default_difficulty: getFormValue(formData, 'default_difficulty') || null,
@@ -80,8 +80,8 @@ export async function updatePracticeTypeAction(formData: FormData) {
     .update({
       title_en: titleEn,
       title_ua: titleUa,
-      description_en: getFormValue(formData, 'description_en') || null,
-      description_ua: getFormValue(formData, 'description_ua') || null,
+      description_en: null,
+      description_ua: null,
       full_description_en: getFormValue(formData, 'full_description_en') || null,
       full_description_ua: getFormValue(formData, 'full_description_ua') || null,
       default_difficulty: getFormValue(formData, 'default_difficulty') || null,

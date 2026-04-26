@@ -7,7 +7,6 @@ type PracticeType = {
   id: string
   title_en: string
   title_ua: string
-  description_en: string | null
   default_difficulty: string | null
 }
 
@@ -39,7 +38,7 @@ export default async function AdminTypesPage({ searchParams }: AdminTypesPagePro
 
   const { data: practiceTypes } = await supabase
     .from('practice_types')
-    .select('id, title_en, title_ua, description_en, default_difficulty')
+    .select('id, title_en, title_ua, default_difficulty')
     .order('created_at', { ascending: false })
 
   return (
@@ -76,7 +75,6 @@ export default async function AdminTypesPage({ searchParams }: AdminTypesPagePro
                 <div>
                   <h3>{type.title_en}</h3>
                   <p>{type.title_ua}</p>
-                  {type.description_en ? <small>{type.description_en}</small> : null}
                 </div>
                 <strong>{type.default_difficulty ?? 'All levels'}</strong>
                 <Link className="adminIconButton" href={`/admin/types/${type.id}/edit`} aria-label={`Edit ${type.title_en}`}>

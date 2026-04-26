@@ -13,7 +13,6 @@ type SchedulePageProps = {
 type PracticeType = {
   title_en?: string | null
   title_ua?: string | null
-  description_en?: string | null
   default_difficulty?: string | null
 }
 
@@ -70,6 +69,7 @@ function formatDay(date: Date) {
     key: toDateKey(date),
     name: new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone }).format(date),
     number: new Intl.DateTimeFormat('en-US', { day: '2-digit', timeZone }).format(date),
+    label: new Intl.DateTimeFormat('en-US', { day: 'numeric', month: 'short', timeZone }).format(date),
   }
 }
 
@@ -104,7 +104,7 @@ export default async function SchedulePage({ searchParams }: SchedulePageProps) 
 
   const { data: classRows } = await supabase
     .from('classes')
-    .select('id, starts_at, duration_minutes, zoom_url, practice_types(title_en, title_ua, description_en, default_difficulty)')
+    .select('id, starts_at, duration_minutes, zoom_url, practice_types(title_en, title_ua, default_difficulty)')
     .gte('starts_at', selectedWeek.toISOString())
     .lt('starts_at', weekEnd.toISOString())
     .order('starts_at', { ascending: true })
@@ -180,8 +180,8 @@ export default async function SchedulePage({ searchParams }: SchedulePageProps) 
               <section className="scheduleDay" key={dayInfo.key}>
                 <div className="scheduleDayHeader">
                   <div>
-                    <span>{dayInfo.name}</span>
-                    <strong>{dayInfo.number}</strong>
+                    <span>{dayInfo.name},</span>
+                    <strong>{dayInfo.label}</strong>
                   </div>
                   {isAdmin ? (
                     <Link className="dayAddButton" href={`/app/schedule/new?date=${dayInfo.key}`} aria-label={`Add class on ${dayInfo.key}`}>
@@ -209,16 +209,14 @@ export default async function SchedulePage({ searchParams }: SchedulePageProps) 
                             <span className="classColor" />
                             <Link className="classContent classContentLink" href={`/app/schedule/${item.id}`}>
                               <div className="classMeta">
-                                <span><Clock3 size={13} /> {formatClassTime(item.starts_at)}</span>
+                                <span><Clock3 size={14} /> {formatClassTime(item.starts_at)}</span>
+                              </div>
+                              <h2>{practiceType?.title_en ?? 'Yoga class'}</h2>
+                              <div className="classFacts">
+                                <span><Gauge size={13} /> {practiceType?.default_difficulty ?? 'All levels'}</span>
                                 <span><Timer size={13} /> {item.duration_minutes ?? 60} min</span>
                                 <BookingCount iconSize={13} />
                               </div>
-                              <h2>{practiceType?.title_en ?? 'Yoga class'}</h2>
-                              <p className="classDescription">{practiceType?.description_en ?? practiceType?.title_ua ?? 'Yoga practice'}</p>
-                              <span className="classDifficulty">
-                                <Gauge size={13} />
-                                {practiceType?.default_difficulty ?? 'All levels'}
-                              </span>
                               <span className="classOpenCue" aria-hidden="true">
                                 <ChevronRight size={18} strokeWidth={2.1} />
                               </span>

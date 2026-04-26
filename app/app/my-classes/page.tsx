@@ -12,7 +12,6 @@ type MyClassesPageProps = {
 type PracticeType = {
   title_en?: string | null
   title_ua?: string | null
-  description_en?: string | null
   default_difficulty?: string | null
 }
 
@@ -79,7 +78,7 @@ export default async function MyClassesPage({ searchParams }: MyClassesPageProps
 
   const { data: rows } = await supabase
     .from('bookings')
-    .select('id, class_id, classes(id, starts_at, duration_minutes, zoom_url, practice_types(title_en, title_ua, description_en, default_difficulty))')
+    .select('id, class_id, classes(id, starts_at, duration_minutes, zoom_url, practice_types(title_en, title_ua, default_difficulty))')
     .eq('user_id', user.id)
 
   const now = Date.now()
@@ -134,14 +133,12 @@ export default async function MyClassesPage({ searchParams }: MyClassesPageProps
                       <p className="myClassDate">{formatClassDate(item.starts_at)}</p>
                       <div className="classMeta">
                         <span><Clock3 size={13} /> {formatClassTime(item.starts_at)}</span>
-                        <span><Timer size={13} /> {item.duration_minutes ?? 60} min</span>
                       </div>
                       <h2>{practiceType?.title_en ?? 'Yoga class'}</h2>
-                      <p className="classDescription">{practiceType?.description_en ?? practiceType?.title_ua ?? 'Yoga practice'}</p>
-                      <span className="classDifficulty">
-                        <Gauge size={13} />
-                        {practiceType?.default_difficulty ?? 'All levels'}
-                      </span>
+                      <div className="classFacts">
+                        <span><Gauge size={13} /> {practiceType?.default_difficulty ?? 'All levels'}</span>
+                        <span><Timer size={13} /> {item.duration_minutes ?? 60} min</span>
+                      </div>
                       <span className="classOpenCue" aria-hidden="true">
                         <ChevronRight size={18} strokeWidth={2.1} />
                       </span>
