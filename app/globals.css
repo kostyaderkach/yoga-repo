@@ -1202,7 +1202,7 @@ button {
   --field: #f5f5f5;
   --purple: #050505;
   --purple-soft: #f4f4f4;
-  --accent: #d8a21b;
+  --accent: #f2c94c;
 }
 
 body {
@@ -1240,7 +1240,7 @@ body {
 .pageTitleHeader h1,
 .profileHeader h1 {
   font-size: 28px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: -0.2px;
 }
 
@@ -1590,7 +1590,7 @@ body {
 
 .scheduleHeader h1 {
   font-size: 28px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: -0.2px;
 }
 
@@ -1671,19 +1671,17 @@ body {
 }
 
 .scheduleDayHeader {
-  background: #fafafa;
   border-bottom: 1px solid var(--line);
   min-height: 44px;
   padding: 0 18px;
 }
 
 .scheduleDayHeader div {
-  background: #fff;
-  border: 1px solid var(--line);
+  border: 0;
   border-radius: 999px;
   gap: 8px;
   min-height: 30px;
-  padding: 0 11px;
+  padding: 0;
 }
 
 .scheduleDayHeader span {
@@ -1797,7 +1795,7 @@ body {
 
 .adminHeader h1 {
   font-size: 28px;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .adminForm {
