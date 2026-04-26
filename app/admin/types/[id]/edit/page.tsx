@@ -34,7 +34,7 @@ export default async function EditPracticeTypePage({ params, searchParams }: Edi
 
   const { data: practiceType } = await supabase
     .from('practice_types')
-    .select('id, title_en, title_ua, description_en, description_ua, default_difficulty, image_url')
+    .select('*')
     .eq('id', id)
     .single()
 
@@ -73,7 +73,7 @@ export default async function EditPracticeTypePage({ params, searchParams }: Edi
           </div>
 
           <label>
-            Description EN
+            Short description EN
             <textarea
               name="description_en"
               placeholder="Dynamic flow practice..."
@@ -82,11 +82,31 @@ export default async function EditPracticeTypePage({ params, searchParams }: Edi
           </label>
 
           <label>
-            Description UA
+            Short description UA
             <textarea
               name="description_ua"
               placeholder="Динамічна практика..."
               defaultValue={practiceType.description_ua ?? ''}
+            />
+          </label>
+
+          <label>
+            Full description EN
+            <textarea
+              className="largeTextarea"
+              name="full_description_en"
+              placeholder="Longer description for the detail screen..."
+              defaultValue={practiceType.full_description_en ?? ''}
+            />
+          </label>
+
+          <label>
+            Full description UA
+            <textarea
+              className="largeTextarea"
+              name="full_description_ua"
+              placeholder="Повний опис для детальної сторінки..."
+              defaultValue={practiceType.full_description_ua ?? ''}
             />
           </label>
 

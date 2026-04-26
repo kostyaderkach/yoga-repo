@@ -2470,6 +2470,10 @@ body {
   grid-template-columns: 1fr;
 }
 
+.adminForm textarea.largeTextarea {
+  min-height: 150px;
+}
+
 .adminList {
   margin: 20px -18px 0;
 }

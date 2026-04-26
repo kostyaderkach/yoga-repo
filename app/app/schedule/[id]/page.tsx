@@ -14,6 +14,8 @@ type PracticeType = {
   title_ua?: string | null
   description_en?: string | null
   description_ua?: string | null
+  full_description_en?: string | null
+  full_description_ua?: string | null
   default_difficulty?: string | null
   image_url?: string | null
 }
@@ -97,7 +99,7 @@ export default async function ClassDetailPage({ params, searchParams }: ClassDet
   const [{ data: classRow }, { data: bookingsRows }, { data: profile }] = await Promise.all([
     supabase
       .from('classes')
-      .select('id, starts_at, duration_minutes, zoom_url, practice_types(title_en, title_ua, description_en, description_ua, default_difficulty, image_url)')
+      .select('id, starts_at, duration_minutes, zoom_url, practice_types(*)')
       .eq('id', id)
       .single(),
     supabase.from('bookings').select('id, class_id, user_id').eq('class_id', id),
@@ -114,6 +116,11 @@ export default async function ClassDetailPage({ params, searchParams }: ClassDet
   const ownBooking = bookings.find((booking) => booking.user_id === user.id)
   const isAdmin = profile?.role === 'admin'
   const weekStart = toDateKey(startOfWeek(new Date(item.starts_at)))
+  const fullDescription = practiceType?.full_description_en
+    || practiceType?.full_description_ua
+    || practiceType?.description_en
+    || practiceType?.description_ua
+    || 'A guided online yoga practice with live Zoom instruction.'
   const participants = bookings.map((booking, index) => {
     const label = participantLabel(booking, index, user.id)
 
@@ -167,7 +174,7 @@ export default async function ClassDetailPage({ params, searchParams }: ClassDet
 
             <section className="detailSection">
               <h2>Description</h2>
-              <p>{practiceType?.description_en || practiceType?.description_ua || 'A guided online yoga practice with live Zoom instruction.'}</p>
+              <p>{fullDescription}</p>
             </section>
 
             <section className="detailSection">
