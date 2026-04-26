@@ -1685,19 +1685,21 @@ body {
 }
 
 .scheduleDays {
-  gap: 0;
+  display: grid;
+  gap: 14px;
   margin: 0 -18px;
 }
 
 .scheduleDay {
   border: 0;
   gap: 0;
+  padding-bottom: 2px;
   position: relative;
 }
 
 .scheduleDayHeader {
   border: 0;
-  min-height: 44px;
+  min-height: 54px;
   padding: 0 18px;
   position: relative;
 }
@@ -1935,7 +1937,6 @@ body {
 
 .detailHeroShell {
   background: #f2f2f2;
-  animation: detailSlideIn 220ms ease both;
   height: min(40svh, 330px);
   left: 0;
   margin: 0 auto;
@@ -1957,7 +1958,6 @@ body {
 }
 
 .detailBody {
-  animation: detailSlideIn 240ms ease 20ms both;
   background: #fff;
   border-radius: 28px 28px 0 0;
   box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.06);
@@ -2119,7 +2119,6 @@ body {
 }
 
 .detailBottomAction {
-  animation: detailSlideIn 240ms ease 40ms both;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0), #fff 28%);
   bottom: 0;
   left: 0;
@@ -2134,17 +2133,6 @@ body {
 
 .detailBottomAction form {
   margin: 0;
-}
-
-.detailTopBar {
-  animation: detailSlideIn 180ms ease both;
-}
-
-.detailLeaving .detailTopBar,
-.detailLeaving .detailHeroShell,
-.detailLeaving .detailBody,
-.detailLeaving .detailBottomAction {
-  animation: detailSlideOut 180ms ease both;
 }
 
 .bookingToast {
@@ -2179,30 +2167,6 @@ body {
 @keyframes buttonSpinner {
   to {
     transform: rotate(360deg);
-  }
-}
-
-@keyframes detailSlideIn {
-  from {
-    opacity: 0.82;
-    transform: translateX(22px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes detailSlideOut {
-  from {
-    opacity: 1;
-    transform: translateX(0);
-  }
-
-  to {
-    opacity: 0;
-    transform: translateX(26px);
   }
 }
 
@@ -2331,6 +2295,65 @@ body {
 
 .scheduleSkeletonDay b {
   background: #f3f3f3;
+}
+
+.detailHeroSkeleton,
+.detailLoadingBody i,
+.detailLoadingBody b,
+.detailLoadingBody .detailMetaGrid span,
+.detailLoadingText strong,
+.detailLoadingText p {
+  animation: skeletonPulse 1.05s ease-in-out infinite;
+  background: #f1f1f1;
+}
+
+.detailLoadingBody i,
+.detailLoadingBody b,
+.detailLoadingText strong,
+.detailLoadingText p {
+  border-radius: 999px;
+  display: block;
+}
+
+.detailLoadingBody i {
+  height: 16px;
+  width: 42%;
+}
+
+.detailLoadingBody b {
+  height: 34px;
+  margin-top: 12px;
+  width: 58%;
+}
+
+.detailLoadingBody .detailMetaGrid span {
+  min-height: 40px;
+}
+
+.detailLoadingText {
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 10px;
+  margin-top: 24px;
+  padding-top: 20px;
+}
+
+.detailLoadingText strong {
+  height: 20px;
+  width: 36%;
+}
+
+.detailLoadingText p {
+  height: 14px;
+  margin: 0;
+}
+
+.detailLoadingText p:nth-child(3) {
+  width: 86%;
+}
+
+.detailLoadingText p:nth-child(4) {
+  width: 68%;
 }
 
 .myClassesScreen {
