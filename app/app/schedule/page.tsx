@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { CalendarDays, ChevronLeft, ChevronRight, Clock3, Gauge, Pencil, Plus, Timer, Trash2 } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Clock3, Gauge, Pencil, Plus, Timer, Trash2 } from 'lucide-react'
 import { redirect } from 'next/navigation'
 import AppTabBar from '../tab-bar'
 import { deleteClassAction } from './actions'
@@ -186,6 +186,7 @@ export default async function SchedulePage({ searchParams }: SchedulePageProps) 
                   {isAdmin ? (
                     <Link className="dayAddButton" href={`/app/schedule/new?date=${dayInfo.key}`} aria-label={`Add class on ${dayInfo.key}`}>
                       <Plus size={18} />
+                      <span>Class</span>
                     </Link>
                   ) : null}
                 </div>
@@ -257,14 +258,6 @@ export default async function SchedulePage({ searchParams }: SchedulePageProps) 
             </div>
           )}
         </div>
-
-        {isAdmin ? (
-          <Link className="floatingAddButton" href={`/app/schedule/new?date=${toDateKey(selectedWeek)}`} aria-label="Add class">
-            <CalendarDays size={21} />
-            Add class
-          </Link>
-        ) : null}
-
         <AppTabBar active="schedule" />
       </section>
     </main>

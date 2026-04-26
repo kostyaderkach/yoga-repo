@@ -1595,7 +1595,7 @@ body {
 
 .scheduleHeader h1 {
   font-size: 28px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: -0.2px;
 }
 
@@ -1728,6 +1728,21 @@ body {
 .classIconButton {
   background: transparent;
   border: 0;
+}
+
+.dayAddButton {
+  border-radius: 999px;
+  gap: 3px;
+  height: 32px;
+  padding: 0 4px;
+  width: auto;
+}
+
+.dayAddButton span {
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: none;
 }
 
 .scheduleClassCard,
