@@ -3,7 +3,6 @@ import { CalendarDays, ChevronLeft, ChevronRight, Clock3, Gauge, Pencil, Plus, T
 import { redirect } from 'next/navigation'
 import AppTabBar from '../tab-bar'
 import { bookClassAction, cancelBookingAction, deleteClassAction } from './actions'
-import ClassDetailLink from './class-detail-link'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
 
 type SchedulePageProps = {
@@ -202,7 +201,7 @@ export default async function SchedulePage({ searchParams }: SchedulePageProps) 
                       return (
                         <article className={`scheduleClassCard ${isAdmin ? 'adminClassCard' : ''}`} key={item.id}>
                           <span className="classColor" />
-                          <ClassDetailLink className="classContent classContentLink" classId={item.id} href={`/app/schedule/${item.id}`}>
+                          <Link className="classContent classContentLink" href={`/app/schedule/${item.id}`}>
                             <div className="classMeta">
                               <span><Clock3 size={13} /> {formatClassTime(item.starts_at)}</span>
                               <span><Timer size={13} /> {item.duration_minutes ?? 60} min</span>
@@ -214,7 +213,7 @@ export default async function SchedulePage({ searchParams }: SchedulePageProps) 
                               <Gauge size={13} />
                               {practiceType?.default_difficulty ?? 'All levels'}
                             </span>
-                          </ClassDetailLink>
+                          </Link>
                           <div className="classActions">
                             {isAdmin ? (
                               <>

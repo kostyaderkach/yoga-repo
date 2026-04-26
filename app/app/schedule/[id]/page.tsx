@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { ArrowLeft, Clock3, Gauge, Pencil, Timer, UsersRound } from 'lucide-react'
 import { redirect } from 'next/navigation'
-import type { CSSProperties } from 'react'
 import { bookClassAction, cancelBookingAction } from '../actions'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
 
@@ -134,12 +133,7 @@ export default async function ClassDetailPage({ params, searchParams }: ClassDet
           )}
         </header>
 
-        <img
-          className="detailHeroImage"
-          src={practiceType?.image_url || fallbackImage}
-          alt=""
-          style={{ viewTransitionName: `class-card-${item.id}` } as CSSProperties}
-        />
+        <img className="detailHeroImage" src={practiceType?.image_url || fallbackImage} alt="" />
 
         <section className="detailBody">
           <p className="detailDate">{formatClassDate(item.starts_at)}</p>
