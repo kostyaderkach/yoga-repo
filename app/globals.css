@@ -1526,7 +1526,7 @@ body {
 .appTabBar {
   background: rgba(255, 255, 255, 0.96);
   border-top: 1px solid var(--line);
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   max-width: 480px;
   min-height: 76px;
   padding-top: 6px;
@@ -1555,14 +1555,6 @@ body {
   color: #000;
 }
 
-.appTabBar a.createTab span {
-  background: var(--field);
-  border-radius: 18px;
-  color: #999;
-  height: 50px;
-  width: 62px;
-}
-
 .scheduleScreen {
   padding-top: 28px;
 }
@@ -1589,15 +1581,69 @@ body {
 }
 
 .weekSwitcher {
-  background: transparent;
+  align-items: center;
+  background: #fff;
   border: 0;
   border-bottom: 1px solid var(--line);
   border-radius: 0;
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) 38px;
   margin: 0 -18px;
+  min-height: 62px;
+  padding: 0 10px;
 }
 
-.weekSwitcher span {
+.weekArrow {
+  align-items: center;
   color: var(--ink);
+  display: inline-flex;
+  height: 48px;
+  justify-content: center;
+}
+
+.weekDayStrip {
+  align-items: center;
+  display: grid;
+  gap: 2px;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.weekDayNumber {
+  align-items: center;
+  color: var(--ink);
+  display: inline-flex;
+  flex-direction: column;
+  gap: 5px;
+  justify-content: center;
+  min-height: 48px;
+}
+
+.weekDayNumber b {
+  align-items: center;
+  border-radius: 50%;
+  display: inline-flex;
+  font-size: 15px;
+  font-weight: 700;
+  height: 30px;
+  justify-content: center;
+  width: 30px;
+}
+
+.weekDayNumber.today b {
+  background: #000;
+  color: #fff;
+}
+
+.weekDayNumber i {
+  background: transparent;
+  border-radius: 50%;
+  display: block;
+  height: 5px;
+  width: 5px;
+}
+
+.weekDayNumber.hasPractice i {
+  background: var(--accent);
 }
 
 .scheduleDays {

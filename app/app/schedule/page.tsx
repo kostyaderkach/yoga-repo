@@ -138,11 +138,28 @@ export default async function SchedulePage({ searchParams }: SchedulePageProps) 
         </header>
 
         <nav className="weekSwitcher" aria-label="Week navigation">
-          <Link href={`/app/schedule?week=${previousWeek}`} aria-label="Previous week">
+          <Link className="weekArrow" href={`/app/schedule?week=${previousWeek}`} aria-label="Previous week">
             <ChevronLeft size={22} />
           </Link>
-          <span>{toDateKey(selectedWeek)}</span>
-          <Link href={`/app/schedule?week=${nextWeek}`} aria-label="Next week">
+          <div className="weekDayStrip">
+            {days.map((day) => {
+              const dayInfo = formatDay(day)
+              const hasPractice = (classesByDay[dayInfo.key] ?? []).length > 0
+              const isToday = dayInfo.key === toDateKey(new Date())
+
+              return (
+                <span
+                  className={`weekDayNumber ${hasPractice ? 'hasPractice' : ''} ${isToday ? 'today' : ''}`}
+                  key={dayInfo.key}
+                  aria-label={`${dayInfo.name} ${dayInfo.number}${hasPractice ? ', has practice' : ''}`}
+                >
+                  <b>{Number(dayInfo.number)}</b>
+                  <i />
+                </span>
+              )
+            })}
+          </div>
+          <Link className="weekArrow" href={`/app/schedule?week=${nextWeek}`} aria-label="Next week">
             <ChevronRight size={22} />
           </Link>
         </nav>
