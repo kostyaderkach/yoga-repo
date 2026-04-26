@@ -1202,7 +1202,7 @@ button {
   --surface: #fff;
   --ink: #050505;
   --muted: #999;
-  --line: #e7e7e7;
+  --line: rgba(0, 0, 0, 0.08);
   --field: #f5f5f5;
   --purple: #050505;
   --purple-soft: #f4f4f4;
@@ -1602,13 +1602,31 @@ body {
   align-items: center;
   background: #fff;
   border: 0;
-  border-bottom: 1px solid var(--line);
   border-radius: 0;
   display: grid;
   grid-template-columns: 38px minmax(0, 1fr) 38px;
   margin: 0 -18px;
   min-height: 62px;
   padding: 0 10px;
+  position: relative;
+}
+
+.weekSwitcher::after,
+.scheduleDay::after,
+.scheduleDayHeader::after,
+.scheduleClassCard::after,
+.detailTopBar::after,
+.adminHeader::after,
+.adminTypeCard::after {
+  background: var(--line);
+  bottom: 0;
+  content: "";
+  height: 1px;
+  left: 18px;
+  position: absolute;
+  right: 18px;
+  transform: scaleY(0.5);
+  transform-origin: bottom;
 }
 
 .weekArrow {
@@ -1670,14 +1688,16 @@ body {
 }
 
 .scheduleDay {
-  border-bottom: 1px solid var(--line);
+  border: 0;
   gap: 0;
+  position: relative;
 }
 
 .scheduleDayHeader {
-  border-bottom: 1px solid var(--line);
+  border: 0;
   min-height: 44px;
   padding: 0 18px;
+  position: relative;
 }
 
 .scheduleDayHeader div {
@@ -1715,6 +1735,12 @@ body {
   border-radius: 0;
   grid-template-columns: 4px minmax(0, 1fr) auto;
   padding: 14px 18px 16px;
+  position: relative;
+}
+
+.scheduleClassCard::after {
+  left: 26px;
+  right: 18px;
 }
 
 .classColor {
@@ -1750,9 +1776,11 @@ body {
 
 .bookClassButton,
 .softClassButton {
-  border-radius: 999px;
+  border-radius: 13px;
   font-size: 13px;
-  min-height: 34px;
+  font-weight: 700;
+  min-height: 36px;
+  padding: 0 18px;
 }
 
 .bookClassButton {
@@ -1760,7 +1788,8 @@ body {
 }
 
 .softClassButton {
-  background: var(--field);
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.12);
   color: var(--ink);
 }
 
@@ -1796,7 +1825,7 @@ body {
 .detailTopBar {
   align-items: center;
   background: rgba(255, 255, 255, 0.94);
-  border-bottom: 1px solid var(--line);
+  border: 0;
   display: grid;
   grid-template-columns: 48px minmax(0, 1fr) 48px;
   min-height: 58px;
@@ -1902,9 +1931,22 @@ body {
 }
 
 .detailSection {
-  border-top: 1px solid var(--line);
+  border: 0;
   margin-top: 22px;
   padding-top: 18px;
+  position: relative;
+}
+
+.detailSection::before {
+  background: var(--line);
+  content: "";
+  height: 1px;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: scaleY(0.5);
+  transform-origin: top;
 }
 
 .detailSection h2,
@@ -1945,15 +1987,28 @@ body {
 
 .participantRow {
   align-items: center;
-  border-top: 1px solid var(--line);
+  border: 0;
   display: grid;
   gap: 12px;
   grid-template-columns: 36px minmax(0, 1fr);
   min-height: 54px;
+  position: relative;
 }
 
-.participantRow:first-child {
-  border-top: 0;
+.participantRow::before {
+  background: var(--line);
+  content: "";
+  height: 1px;
+  left: 48px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: scaleY(0.5);
+  transform-origin: top;
+}
+
+.participantRow:first-child::before {
+  display: none;
 }
 
 .participantRow span {
@@ -2015,7 +2070,7 @@ body {
 .detailPrimaryButton,
 .detailSecondaryButton {
   border: 0;
-  border-radius: 14px;
+  border-radius: 15px;
   font-size: 16px;
   font-weight: 700;
   min-height: 50px;
@@ -2036,7 +2091,8 @@ body {
 }
 
 .detailSecondaryButton {
-  background: var(--field);
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.12);
   color: var(--ink);
 }
 
@@ -2046,9 +2102,10 @@ body {
 }
 
 .adminHeader {
-  border-bottom: 1px solid var(--line);
+  border: 0;
   margin: 0 -18px;
   padding: 0 18px 16px;
+  position: relative;
 }
 
 .adminHeader h1 {
@@ -2079,12 +2136,13 @@ body {
 }
 
 .adminTypeCard {
-  border-bottom: 1px solid var(--line);
+  border: 0;
   border-radius: 0;
   gap: 12px;
   grid-template-columns: 4px minmax(0, 1fr) auto;
   margin: 0;
   padding: 14px 62px 14px 18px;
+  position: relative;
 }
 
 .adminTypeCard > span {
