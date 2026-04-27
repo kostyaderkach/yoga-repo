@@ -230,6 +230,25 @@ async function getClassBookingCount(supabase: Awaited<ReturnType<typeof createSu
   return count ?? 0
 }
 
+async function deleteUserClassBookings(
+  supabase: Awaited<ReturnType<typeof createSupabaseServerClient>>,
+  classId: string,
+  userId: string,
+) {
+  const { data, error } = await supabase
+    .from('bookings')
+    .delete()
+    .eq('class_id', classId)
+    .eq('user_id', userId)
+    .select('id')
+
+  if (error) {
+    return { deletedCount: 0, error: error.message }
+  }
+
+  return { deletedCount: data?.length ?? 0, error: null }
+}
+
 export async function setClassBookingAction(classId: string, shouldBook: boolean) {
   const { supabase, user } = await getUserClient()
 
@@ -281,6 +300,7 @@ export async function setClassBookingAction(classId: string, shouldBook: boolean
     }
 
     revalidatePath('/app/schedule')
+    revalidatePath('/app/my-classes')
     revalidatePath(`/app/schedule/${classId}`)
 
     return {
@@ -292,23 +312,20 @@ export async function setClassBookingAction(classId: string, shouldBook: boolean
     }
   }
 
-  const { error } = await supabase
-    .from('bookings')
-    .delete()
-    .eq('class_id', classId)
-    .eq('user_id', user.id)
+  const { deletedCount, error } = await deleteUserClassBookings(supabase, classId, user.id)
 
-  if (error) {
+  if (error || deletedCount === 0) {
     return {
       ok: false,
       booked: Boolean(existingBooking),
       bookingId: existingBooking?.id ?? null,
       bookedCount: await getClassBookingCount(supabase, classId),
-      message: error.message,
+      message: error ?? 'Booking could not be canceled. Check bookings delete policy.',
     }
   }
 
   revalidatePath('/app/schedule')
+  revalidatePath('/app/my-classes')
   revalidatePath(`/app/schedule/${classId}`)
 
   return {

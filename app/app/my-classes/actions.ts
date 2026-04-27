@@ -21,13 +21,15 @@ export async function cancelMyClassBookingAction(bookingId: string, classId: str
     }
   }
 
-  const { data, error } = await supabase
+  let query = supabase
     .from('bookings')
     .delete()
-    .eq('id', bookingId)
     .eq('user_id', user.id)
     .select('id')
-    .maybeSingle()
+
+  query = bookingId ? query.eq('id', bookingId) : query.eq('class_id', classId)
+
+  const { data, error } = await query
 
   if (error) {
     return {
@@ -36,10 +38,10 @@ export async function cancelMyClassBookingAction(bookingId: string, classId: str
     }
   }
 
-  if (!data) {
+  if (!data?.length) {
     return {
       ok: false,
-      message: 'Booking was not found.',
+      message: 'Booking could not be canceled. Check bookings delete policy.',
     }
   }
 

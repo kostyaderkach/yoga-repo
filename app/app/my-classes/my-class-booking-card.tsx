@@ -18,16 +18,14 @@ export default function MyClassBookingCard({ bookingId, children, classId }: MyC
 
   async function handleClick(event: MouseEvent<HTMLDivElement>) {
     const target = event.target as HTMLElement
-    const button = target.closest('[data-unbook-button]')
+    const button = target.closest<HTMLButtonElement>('[data-unbook-button]')
 
     if (!button || isPending) {
       return
     }
 
     setIsPending(true)
-    if (button instanceof HTMLButtonElement) {
-      button.disabled = true
-    }
+    button.disabled = true
 
     const result = await cancelMyClassBookingAction(bookingId, classId)
 
@@ -39,9 +37,7 @@ export default function MyClassBookingCard({ bookingId, children, classId }: MyC
     } else {
       setToast(result.message)
       setIsPending(false)
-      if (button instanceof HTMLButtonElement) {
-        button.disabled = false
-      }
+      button.disabled = false
       window.setTimeout(() => setToast(null), 2600)
     }
   }

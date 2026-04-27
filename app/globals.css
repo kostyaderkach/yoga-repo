@@ -2478,7 +2478,7 @@ body {
 }
 
 .myClassPending [data-unbook-button]::after {
-  animation: buttonSpinner 780ms linear infinite;
+  animation: centeredButtonSpinner 780ms linear infinite;
   border: 2px solid var(--ink);
   border-right-color: transparent;
   border-radius: 50%;
@@ -2489,6 +2489,12 @@ body {
   top: 50%;
   transform: translate(-50%, -50%);
   width: 16px;
+}
+
+@keyframes centeredButtonSpinner {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }
 
 .myClassesEmpty {
