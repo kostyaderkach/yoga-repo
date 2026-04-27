@@ -34,6 +34,7 @@ export default async function AccountPage() {
   const name = typeof user.user_metadata?.full_name === 'string' && user.user_metadata.full_name
     ? user.user_metadata.full_name
     : user.email?.split('@')[0] ?? 'Yoga student'
+  const avatarUrl = typeof user.user_metadata?.avatar_url === 'string' ? user.user_metadata.avatar_url : ''
   const rows = [
     { icon: Ruler, label: 'My Body', value: 'Height, weight, goals', href: '/app/account/my-body' },
     { icon: Languages, label: 'Language', value: 'EN / UA' },
@@ -56,7 +57,9 @@ export default async function AccountPage() {
         </header>
 
         <Link className="accountProfileCard" href="/app/account/profile">
-          <div className="accountAvatar">{getInitials(name)}</div>
+          <div className="accountAvatar">
+            {avatarUrl ? <img src={avatarUrl} alt="" /> : getInitials(name)}
+          </div>
           <div>
             <h2>{name}</h2>
             <p>{user.email}</p>

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { CalendarDays, ChevronLeft, Mail, Phone, UserRound } from 'lucide-react'
+import { CalendarDays, ChevronLeft, Image, Mail, Pencil, Phone, UserRound } from 'lucide-react'
 import { redirect } from 'next/navigation'
 import { updateProfileAction } from '../actions'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
@@ -31,6 +31,7 @@ export default async function ProfilePage({ searchParams }: ProfilePageProps) {
 
   const metadata = user.user_metadata ?? {}
   const name = typeof metadata.full_name === 'string' && metadata.full_name ? metadata.full_name : user.email?.split('@')[0] ?? ''
+  const avatarUrl = typeof metadata.avatar_url === 'string' ? metadata.avatar_url : ''
   const phone = typeof metadata.phone === 'string' ? metadata.phone : ''
   const gender = typeof metadata.gender === 'string' ? metadata.gender : ''
   const birthdate = typeof metadata.birthdate === 'string' ? metadata.birthdate : ''
@@ -48,7 +49,12 @@ export default async function ProfilePage({ searchParams }: ProfilePageProps) {
         </header>
 
         <div className="editAvatarBlock">
-          <div className="accountAvatar large">{getInitials(name)}</div>
+          <div className="accountAvatar large">
+            {avatarUrl ? <img src={avatarUrl} alt="" /> : getInitials(name)}
+            <span className="avatarEditBadge">
+              <Pencil size={16} />
+            </span>
+          </div>
         </div>
 
         {params.saved ? <p className="adminNotice successMessage">Profile saved.</p> : null}
@@ -60,6 +66,14 @@ export default async function ProfilePage({ searchParams }: ProfilePageProps) {
             <span className="accountField">
               <UserRound size={19} />
               <input defaultValue={name} name="full_name" placeholder="Your name" />
+            </span>
+          </label>
+
+          <label>
+            Avatar URL
+            <span className="accountField">
+              <Image size={19} />
+              <input defaultValue={avatarUrl} name="avatar_url" placeholder="https://..." />
             </span>
           </label>
 

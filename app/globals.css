@@ -1264,22 +1264,26 @@ body {
 .limeButton,
 .adminPrimaryButton {
   background: var(--purple);
-  border-radius: 14px;
+  border: 0;
+  border-radius: 999px;
   color: #fff;
   font-size: 16px;
-  font-weight: 700;
-  min-height: 48px;
+  font-weight: 800;
+  min-height: 50px;
+  padding: 0 24px;
 }
 
 .softPurpleButton,
 .ghostButton,
 .adminSecondaryButton {
-  background: var(--field);
-  border-radius: 14px;
-  color: var(--ink);
+  background: #fff;
+  border: 1px solid color-mix(in srgb, var(--purple) 58%, white);
+  border-radius: 999px;
+  color: var(--purple);
   font-size: 16px;
-  font-weight: 700;
-  min-height: 48px;
+  font-weight: 800;
+  min-height: 50px;
+  padding: 0 24px;
 }
 
 .languageSwitch {
@@ -1320,8 +1324,8 @@ body {
 .adminForm select {
   background: var(--field);
   border: 0;
-  border-radius: 14px;
-  min-height: 50px;
+  border-radius: 16px;
+  min-height: 52px;
 }
 
 .signupField {
@@ -1521,6 +1525,8 @@ body {
   font-weight: 800;
   height: 58px;
   justify-content: center;
+  overflow: hidden;
+  position: relative;
   width: 58px;
 }
 
@@ -1528,6 +1534,27 @@ body {
   font-size: 26px;
   height: 106px;
   width: 106px;
+}
+
+.accountAvatar img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.avatarEditBadge {
+  align-items: center;
+  background: var(--purple);
+  border: 3px solid #fff;
+  border-radius: 12px;
+  bottom: 5px;
+  color: #fff;
+  display: inline-flex;
+  height: 31px;
+  justify-content: center;
+  position: absolute;
+  right: 1px;
+  width: 31px;
 }
 
 .accountProfileCard h2 {
@@ -1628,11 +1655,11 @@ body {
   align-items: center;
   background: var(--field);
   border: 0;
-  border-radius: 14px;
+  border-radius: 16px;
   display: grid;
   gap: 12px;
   grid-template-columns: 22px minmax(0, 1fr);
-  min-height: 58px;
+  min-height: 54px;
   padding: 0 16px;
 }
 
@@ -1659,7 +1686,7 @@ body {
 
 .unitSwitch {
   background: var(--field);
-  border-radius: 12px;
+  border-radius: 16px;
   display: grid;
   gap: 0;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1677,7 +1704,7 @@ body {
 
 .unitSwitch span {
   align-items: center;
-  border-radius: 10px;
+  border-radius: 14px;
   color: var(--ink);
   display: flex;
   font-size: 14px;
@@ -1698,11 +1725,11 @@ body {
 .bodyField {
   align-items: center;
   background: var(--field);
-  border-radius: 14px;
+  border-radius: 16px;
   display: grid !important;
   gap: 12px !important;
   grid-template-columns: minmax(0, 1fr) 110px 20px;
-  min-height: 64px;
+  min-height: 58px;
   padding: 0 16px;
 }
 
@@ -2029,11 +2056,11 @@ body {
 
 .bookClassButton,
 .softClassButton {
-  border-radius: 13px;
+  border-radius: 999px;
   font-size: 13px;
-  font-weight: 700;
-  min-height: 36px;
-  padding: 0 18px;
+  font-weight: 800;
+  min-height: 40px;
+  padding: 0 22px;
 }
 
 .bookClassButton {
@@ -2386,10 +2413,10 @@ body {
 .detailPrimaryButton,
 .detailSecondaryButton {
   border: 0;
-  border-radius: 15px;
+  border-radius: 999px;
   font-size: 16px;
-  font-weight: 700;
-  min-height: 50px;
+  font-weight: 800;
+  min-height: 54px;
   width: 100%;
 }
 

@@ -30,6 +30,7 @@ export async function updateProfileAction(formData: FormData) {
     data: {
       ...metadata,
       full_name: getValue(formData, 'full_name'),
+      avatar_url: getValue(formData, 'avatar_url'),
       phone: getValue(formData, 'phone'),
       gender: getValue(formData, 'gender'),
       birthdate: getValue(formData, 'birthdate'),
