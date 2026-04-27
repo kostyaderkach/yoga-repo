@@ -1204,9 +1204,11 @@ button {
   --muted: #999;
   --line: rgba(0, 0, 0, 0.08);
   --field: #f5f5f5;
-  --purple: #050505;
-  --purple-soft: #f4f4f4;
-  --accent: #ff888c;
+  --purple: #7b6ef4;
+  --purple-soft: #f2f0ff;
+  --accent: #7b6ef4;
+  --metric-green: #55c777;
+  --metric-red: #ff725f;
 }
 
 body {
@@ -1261,7 +1263,7 @@ body {
 .primaryPurpleButton,
 .limeButton,
 .adminPrimaryButton {
-  background: #000;
+  background: var(--purple);
   border-radius: 14px;
   color: #fff;
   font-size: 16px;
@@ -1350,8 +1352,8 @@ body {
 
 .termsLine input:checked,
 .rememberLine input:checked {
-  background: #000;
-  border-color: #000;
+  background: var(--purple);
+  border-color: var(--purple);
   box-shadow: inset 0 0 0 4px #fff;
 }
 
@@ -1417,7 +1419,7 @@ body {
 
 .composerRow a,
 .feedItem a {
-  background: #000;
+  background: var(--purple);
   border-radius: 999px;
   color: #fff;
   font-size: 14px;
@@ -1497,7 +1499,7 @@ body {
 
 .profileAvatar {
   align-items: center;
-  background: #000;
+  background: var(--purple);
   color: #fff;
   display: inline-flex;
   font-size: 22px;
@@ -1565,12 +1567,12 @@ body {
 }
 
 .appTabBar a.active {
-  color: #000;
+  color: var(--purple);
 }
 
 .appTabBar a.active span {
   background: transparent;
-  color: #000;
+  color: var(--purple);
 }
 
 .scheduleScreen {
@@ -1668,7 +1670,7 @@ body {
 }
 
 .weekDayNumber.today b {
-  background: #000;
+  background: var(--purple);
   color: #fff;
 }
 
@@ -1826,6 +1828,26 @@ body {
   gap: 4px;
 }
 
+.classMeta svg {
+  color: var(--metric-green);
+  stroke-width: 2.35;
+}
+
+.classFacts span:nth-child(1) svg {
+  color: var(--purple);
+  stroke-width: 2.35;
+}
+
+.classFacts span:nth-child(2) svg {
+  color: var(--metric-green);
+  stroke-width: 2.35;
+}
+
+.classFacts span:nth-child(3) svg {
+  color: var(--metric-red);
+  stroke-width: 2.35;
+}
+
 .classDifficulty {
   color: var(--ink);
   font-size: 12px;
@@ -1842,13 +1864,15 @@ body {
 }
 
 .bookClassButton {
-  background: #000;
+  background: #fff;
+  border: 1px solid color-mix(in srgb, var(--purple) 58%, white);
+  color: var(--purple);
 }
 
 .softClassButton {
-  background: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  color: var(--ink);
+  background: var(--purple-soft);
+  border: 1px solid color-mix(in srgb, var(--purple) 24%, white);
+  color: var(--purple);
 }
 
 .classActions {
@@ -1888,7 +1912,7 @@ body {
 }
 
 .floatingAddButton {
-  background: #000;
+  background: var(--purple);
   bottom: 88px;
   box-shadow: none;
   min-height: 46px;
@@ -2015,6 +2039,22 @@ body {
   padding: 0 12px;
 }
 
+.detailMetaGrid span:nth-child(1) svg,
+.detailMetaGrid span:nth-child(2) svg {
+  color: var(--metric-green);
+  stroke-width: 2.35;
+}
+
+.detailMetaGrid span:nth-child(3) svg {
+  color: var(--purple);
+  stroke-width: 2.35;
+}
+
+.detailMetaGrid span:nth-child(4) svg {
+  color: var(--metric-red);
+  stroke-width: 2.35;
+}
+
 .detailSection {
   border: 0;
   margin-top: 22px;
@@ -2098,7 +2138,7 @@ body {
 
 .participantRow span {
   align-items: center;
-  background: #000;
+  background: var(--purple);
   border-radius: 50%;
   color: #fff;
   display: inline-flex;
@@ -2189,14 +2229,14 @@ body {
 }
 
 .detailPrimaryButton {
-  background: #000;
+  background: var(--purple);
   color: #fff;
 }
 
 .detailSecondaryButton {
   background: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  color: var(--ink);
+  border: 1px solid color-mix(in srgb, var(--purple) 58%, white);
+  color: var(--purple);
 }
 
 .adminScreen,
@@ -2468,8 +2508,8 @@ body {
 
 .myClassActions .bookClassButton {
   background: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  color: var(--ink);
+  border: 1px solid color-mix(in srgb, var(--purple) 58%, white);
+  color: var(--purple);
 }
 
 .myClassPending [data-unbook-button] {
